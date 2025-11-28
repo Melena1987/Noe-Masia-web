@@ -4,7 +4,7 @@ import { ArrowRight, Leaf, TrendingUp, Utensils, ClipboardList } from 'lucide-re
 
 export const NutritionPage: React.FC = () => {
   useEffect(() => {
-    document.title = "Nutrición Deportiva | Noe Masià";
+    document.title = "Nutrición Deportiva y Salud | Noe Masià";
   }, []);
 
   const scrollToContact = () => {

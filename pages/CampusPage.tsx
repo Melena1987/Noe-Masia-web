@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const CampusPage: React.FC = () => {
   useEffect(() => {
-    document.title = "Campus Baloncesto | Noe Masià";
+    document.title = "Campus de Tecnificación Baloncesto | Noe Masià";
   }, []);
 
   const scrollToContact = () => {

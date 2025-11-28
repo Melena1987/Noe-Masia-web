@@ -22,7 +22,7 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-black z-0"></div>
         
         <img 
-          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764321274510_Gemini_Generated_Image_8rvn68rvn68rvn68.png?alt=media&token=5f12b4f3-cb43-4620-8d1b-5365524d2f29"
+          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764327296052_Noe_Masia.png?alt=media&token=c13087bc-eba3-419b-a0a5-d61defc21010"
           alt="Noe Masià Background"
           className="absolute inset-0 w-full h-[120%] object-cover object-[center_20%] z-10 will-change-transform opacity-90"
           style={{ 
