@@ -6,7 +6,7 @@ import { Brain, Dumbbell, Heart } from 'lucide-react';
 export const Campus: React.FC<SectionProps> = ({ id }) => {
   return (
     <section id={id} className="relative py-32 md:py-40 bg-fixed bg-cover bg-center bg-gray-900" 
-      style={{ backgroundImage: 'url("https://picsum.photos/1920/1080?random=2")' }}>
+      style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894_ESTEPONA_-38.jpg?alt=media&token=b7bc2b58-9295-45ef-b632-cb62b8ba6fac")' }}>
       
       {/* Dark tint for legibility */}
       <div className="absolute inset-0 bg-brand-dark/85"></div>

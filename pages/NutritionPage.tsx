@@ -12,7 +12,7 @@ export const NutritionPage: React.FC = () => {
         
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <span className="text-brand-orange font-bold tracking-[0.3em] text-xs uppercase block mb-4">
-            Dietista Deportiva & Jugadora Profesional
+            Dietista Deportiva | Antropometrista ISAK 1 | Jugadora PRO
           </span>
           <h1 className="text-5xl md:text-7xl font-black uppercase text-brand-dark mb-8">
             Nutrición<br/>Deportiva

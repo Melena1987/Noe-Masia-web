@@ -17,7 +17,7 @@ export const About: React.FC<SectionProps> = ({ id }) => {
           </h2>
           <div className="space-y-6 text-gray-400 text-lg font-light leading-relaxed max-w-2xl">
             <p>
-              Soy <strong className="text-white font-normal">Noelia Masià</strong>, jugadora profesional de baloncesto y dietista deportiva.
+              Soy <strong className="text-white font-normal">Noelia Masià</strong>, jugadora profesional de baloncesto, dietista deportiva y <strong className="text-brand-orange font-normal">antropometrista ISAK 1</strong>.
               A lo largo de mi carrera he aprendido en primera persona cómo la nutrición, el cuidado del cuerpo y la mente, 
               el entrenamiento y la disciplina son pilares indivisibles.
             </p>
@@ -38,8 +38,8 @@ export const About: React.FC<SectionProps> = ({ id }) => {
               <span className="text-xs uppercase tracking-[0.2em] text-brand-orange">Dietitian</span>
             </div>
             <div>
-              <span className="block text-4xl font-black text-white">Mind</span>
-              <span className="text-xs uppercase tracking-[0.2em] text-brand-orange">Set</span>
+              <span className="block text-4xl font-black text-white">ISAK 1</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-brand-orange">Certified</span>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@ export const About: React.FC<SectionProps> = ({ id }) => {
         <div className="md:col-span-5 order-1 md:order-2">
           <div className="relative aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 ease-out group">
              <img 
-              src="https://picsum.photos/600/800?random=10" 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC2907_copia.jpg?alt=media&token=451882a3-b460-4a4a-8e3a-ff0495ff330d" 
               alt="Noe Masià Portrait" 
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
             />

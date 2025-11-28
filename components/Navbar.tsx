@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
   useEffect(() => {
@@ -16,15 +17,26 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const getLinkHref = (anchor: string) => {
-    return isHome ? anchor : `/${anchor}`;
-  };
+  const handleNavigation = (e: React.MouseEvent, targetId: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
 
-  const navLinks = [
-    { name: 'About', href: getLinkHref('#about'), isRouterLink: false },
-    { name: 'Campus', href: getLinkHref('#campus'), isRouterLink: false },
-    { name: 'Nutrición', href: '/nutricion', isRouterLink: true },
-  ];
+    if (isHome) {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <nav 
@@ -40,25 +52,28 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-12">
-          {navLinks.map((link) => (
-            link.isRouterLink ? (
-              <Link 
-                key={link.name}
-                to={link.href}
-                className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-orange transition-colors"
-              >
-                {link.name}
-              </Link>
-            ) : (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-orange transition-colors"
-              >
-                {link.name}
-              </a>
-            )
-          ))}
+          <button 
+            onClick={(e) => handleNavigation(e, 'about')}
+            className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-orange transition-colors bg-transparent border-none cursor-pointer"
+          >
+            About
+          </button>
+          
+          <button 
+            onClick={(e) => handleNavigation(e, 'campus')}
+            className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-orange transition-colors bg-transparent border-none cursor-pointer"
+          >
+            Campus
+          </button>
+
+          <Link 
+            to="/nutricion"
+            className={`text-sm uppercase tracking-widest transition-colors ${
+              location.pathname === '/nutricion' ? 'text-brand-orange font-bold' : 'text-gray-300 hover:text-brand-orange'
+            }`}
+          >
+            Nutrición
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -73,27 +88,27 @@ export const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-brand-dark flex flex-col justify-center items-center space-y-8 z-40">
-           {navLinks.map((link) => (
-             link.isRouterLink ? (
-              <Link 
-                key={link.name}
-                to={link.href}
-                className="text-xl uppercase tracking-widest text-white hover:text-brand-orange"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-             ) : (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className="text-xl uppercase tracking-widest text-white hover:text-brand-orange"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-             )
-          ))}
+           <button 
+            onClick={(e) => handleNavigation(e, 'about')}
+            className="text-xl uppercase tracking-widest text-white hover:text-brand-orange bg-transparent border-none"
+          >
+            About
+          </button>
+          
+          <button 
+            onClick={(e) => handleNavigation(e, 'campus')}
+            className="text-xl uppercase tracking-widest text-white hover:text-brand-orange bg-transparent border-none"
+          >
+            Campus
+          </button>
+
+          <Link 
+            to="/nutricion"
+            className="text-xl uppercase tracking-widest text-white hover:text-brand-orange"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Nutrición
+          </Link>
         </div>
       )}
     </nav>
