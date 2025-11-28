@@ -8,12 +8,12 @@ export const Nutrition: React.FC<SectionProps> = ({ id }) => {
   return (
     <section id={id} className="py-24 md:py-32 bg-brand-light text-brand-dark relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-20 items-center">
+        <div className="grid md:grid-cols-12 gap-12 items-center">
           
           {/* Visual Side */}
-          <div className="w-full lg:w-1/2 relative order-2 lg:order-1">
+          <div className="md:col-span-5 relative order-2 md:order-1">
              <div className="absolute top-4 left-4 w-full h-full border-2 border-brand-dark z-0 hidden md:block"></div>
-             <div className="relative z-10 aspect-square overflow-hidden bg-gray-200">
+             <div className="relative z-10 aspect-[3/4] overflow-hidden bg-gray-200 shadow-xl">
                 <img 
                   src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764323005306_Unknown-5.jpg?alt=media&token=73ca4403-901b-40a0-a192-9196d81633b5" 
                   alt="Noelia Masià Nutrition" 
@@ -23,7 +23,7 @@ export const Nutrition: React.FC<SectionProps> = ({ id }) => {
           </div>
 
           {/* Text Side */}
-          <div className="w-full lg:w-1/2 order-1 lg:order-2">
+          <div className="md:col-span-7 order-1 md:order-2">
             <span className="text-brand-orange uppercase tracking-[0.2em] font-bold text-sm mb-4 block">
               Sports Dietitian
             </span>
