@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SectionProps } from '../types';
 
 export const About: React.FC<SectionProps> = ({ id }) => {
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setOffset(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section id={id} className="py-24 md:py-32 bg-brand-dark relative overflow-hidden">
       {/* Decorative background element */}
@@ -46,12 +56,18 @@ export const About: React.FC<SectionProps> = ({ id }) => {
 
         {/* Image Side */}
         <div className="md:col-span-5 order-1 md:order-2">
-          <div className="relative aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 ease-out group">
-             <img 
-              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC2907_copia.jpg?alt=media&token=451882a3-b460-4a4a-8e3a-ff0495ff330d" 
-              alt="Noe Masià Portrait" 
-              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-            />
+          <div className="relative aspect-[3/4] overflow-hidden group">
+             {/* Wrapper for Parallax */}
+             <div 
+               className="w-full h-[120%] -mt-[10%]"
+               style={{ transform: `translateY(${(offset - 300) * 0.08}px)` }}
+             >
+               <img 
+                src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC2907_copia.jpg?alt=media&token=451882a3-b460-4a4a-8e3a-ff0495ff330d" 
+                alt="Noe Masià Portrait" 
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
             {/* Minimalist Border Frame */}
             <div className="absolute inset-4 border border-white/20 pointer-events-none transition-all duration-500 group-hover:inset-2"></div>
           </div>

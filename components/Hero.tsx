@@ -49,8 +49,8 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
             Noe<br />Masià
           </h1>
           
-          <p className="max-w-md text-gray-100 text-lg md:text-xl font-light leading-relaxed border-l-2 border-brand-orange pl-6 backdrop-blur-md bg-black/20 py-4 pr-2 rounded-r-sm">
-            Talento, disciplina y pasión en cada jugada.
+          <p className="max-w-2xl text-gray-100 text-lg md:text-xl font-light leading-relaxed border-l-2 border-brand-orange pl-6 backdrop-blur-md bg-black/20 py-4 pr-2 rounded-r-sm">
+            Rendimiento integral: uniendo la experiencia del baloncesto profesional con la ciencia de la nutrición.
           </p>
         </div>
       </div>
