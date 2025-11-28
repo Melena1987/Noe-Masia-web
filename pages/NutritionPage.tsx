@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../components/Button';
 import { ArrowRight, Leaf, TrendingUp, Utensils, ClipboardList } from 'lucide-react';
 
 export const NutritionPage: React.FC = () => {
+  useEffect(() => {
+    document.title = "Nutrición Deportiva | Noe Masià";
+  }, []);
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };

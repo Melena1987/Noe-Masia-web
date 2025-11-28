@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Hero } from '../components/Hero';
 import { About } from '../components/About';
 import { Campus } from '../components/Campus';
 import { Nutrition } from '../components/Nutrition';
 
 export const HomePage: React.FC = () => {
+  useEffect(() => {
+    document.title = "Noe Masià | Jugadora Profesional & Dietista Deportiva";
+  }, []);
+
   return (
     <div className="bg-brand-dark text-white">
       <Hero id="hero" />

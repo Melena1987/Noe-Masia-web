@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../components/Button';
 import { Brain, Dumbbell, Heart, Users, Target, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CampusPage: React.FC = () => {
+  useEffect(() => {
+    document.title = "Campus Baloncesto | Noe Masià";
+  }, []);
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
