@@ -1,0 +1,16 @@
+import React from 'react';
+import { Hero } from '../components/Hero';
+import { About } from '../components/About';
+import { Campus } from '../components/Campus';
+import { Nutrition } from '../components/Nutrition';
+
+export const HomePage: React.FC = () => {
+  return (
+    <div className="bg-brand-dark text-white">
+      <Hero id="hero" />
+      <About id="about" />
+      <Campus id="campus" />
+      <Nutrition id="nutrition" />
+    </div>
+  );
+};
