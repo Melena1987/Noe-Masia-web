@@ -15,8 +15,8 @@ export const Nutrition: React.FC<SectionProps> = ({ id }) => {
              <div className="absolute top-4 left-4 w-full h-full border-2 border-brand-dark z-0 hidden md:block"></div>
              <div className="relative z-10 aspect-square overflow-hidden bg-gray-200">
                 <img 
-                  src="https://picsum.photos/800/800?random=3" 
-                  alt="Nutrition and Health" 
+                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764323005306_Unknown-5.jpg?alt=media&token=73ca4403-901b-40a0-a192-9196d81633b5" 
+                  alt="Noelia Masià Nutrition" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
              </div>

@@ -119,7 +119,7 @@ export const NutritionPage: React.FC = () => {
           <div className="order-1 md:order-2">
             <div className="relative aspect-[4/5] bg-white p-4 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
                <img 
-                src="https://picsum.photos/800/1000?random=4" 
+                src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764321274510_Gemini_Generated_Image_8rvn68rvn68rvn68.png?alt=media&token=5f12b4f3-cb43-4620-8d1b-5365524d2f29" 
                 alt="Women in Sports" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                />

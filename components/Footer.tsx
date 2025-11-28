@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Twitter, Linkedin } from 'lucide-react';
+import { Instagram, Twitter, Linkedin, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -22,9 +22,20 @@ export const Footer: React.FC = () => {
         <p className="text-gray-600 text-sm">
           &copy; {new Date().getFullYear()} Noe Masià. Todos los derechos reservados.
         </p>
-        <p className="text-gray-700 text-xs mt-2">
-          Diseñado con pasión.
-        </p>
+        
+        <div className="flex items-center justify-center gap-1.5 text-gray-500 text-xs mt-4">
+          <span>Diseñado con</span>
+          <Heart size={12} className="text-red-600 fill-current" />
+          <span>por</span>
+          <a 
+            href="https://melenamarketing.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="font-medium hover:text-brand-orange transition-colors"
+          >
+            Melena Marketing
+          </a>
+        </div>
       </div>
     </footer>
   );
