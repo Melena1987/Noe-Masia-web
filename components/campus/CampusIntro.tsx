@@ -24,7 +24,7 @@ export const CampusIntro: React.FC = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-brand-orange/20 transform rotate-3 rounded-sm z-0"></div>
           <img 
-            src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764320049135_587736943_17845357059615820_1696571582367293604_n.jpg?alt=media&token=438fe860-3d50-432e-a833-bddb9353339c"
+            src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC0086_copia.jpg?alt=media&token=229254d8-b280-46ff-8880-25ac6a1f1efd"
             alt="Noe Masia Campus Portrait"
             className="relative z-10 w-full h-auto grayscale hover:grayscale-0 transition-all duration-500 rounded-sm shadow-2xl"
           />
