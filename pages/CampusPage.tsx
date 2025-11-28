@@ -15,7 +15,7 @@ export const CampusPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-20 bg-brand-dark text-white min-h-screen font-sans selection:bg-brand-green selection:text-brand-dark">
+    <div className="pt-20 bg-brand-dark text-white min-h-screen font-sans selection:bg-brand-green selection:text-white">
       <CampusHero />
       <CampusIntro />
       <CampusMethodology />
