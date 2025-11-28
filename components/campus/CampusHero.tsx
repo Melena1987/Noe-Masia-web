@@ -15,7 +15,7 @@ export const CampusHero: React.FC = () => {
 
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto flex flex-col items-center">
         {/* Logo Integration */}
-        <div className="mb-8 w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-brand-green overflow-hidden shadow-2xl shadow-black/50 bg-white animate-fade-in-up">
+        <div className="mb-8 w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-brand-lime overflow-hidden shadow-2xl shadow-black/50 bg-white animate-fade-in-up">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764320049135_587736943_17845357059615820_1696571582367293604_n_400x400.jpg?alt=media&token=438fe860-3d50-432e-a833-bddb9353339c" 
               alt="Logo Campus Noe Masiá" 
@@ -23,7 +23,7 @@ export const CampusHero: React.FC = () => {
             />
         </div>
 
-        <span className="text-brand-green font-bold tracking-[0.3em] text-sm uppercase block mb-4 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+        <span className="text-brand-lime font-bold tracking-[0.3em] text-sm uppercase block mb-4 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
           Más que baloncesto
         </span>
         <h1 className="text-5xl md:text-8xl font-black uppercase text-white mb-6 leading-[0.9] drop-shadow-2xl animate-fade-in-up" style={{animationDelay: '0.2s'}}>

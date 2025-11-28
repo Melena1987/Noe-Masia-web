@@ -5,6 +5,6 @@ export interface SectionProps {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'outline' | 'white';
+  variant?: 'primary' | 'outline' | 'white' | 'lime' | 'outline-lime';
   children: React.ReactNode;
 }

@@ -12,7 +12,7 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
       <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
         Las plazas son limitadas para garantizar la calidad del entrenamiento y la atención personalizada a cada jugador.
       </p>
-      <Button variant="outline" className="px-10 py-4" onClick={onContactClick}>
+      <Button variant="outline-lime" className="px-10 py-4" onClick={onContactClick}>
         Contactar para próxima edición
       </Button>
     </section>
