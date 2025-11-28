@@ -4,6 +4,10 @@ import { Brain, Dumbbell, Heart, Users, Target, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CampusPage: React.FC = () => {
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="pt-20 bg-brand-dark text-white min-h-screen font-sans selection:bg-brand-orange selection:text-white">
       
@@ -129,11 +133,9 @@ export const CampusPage: React.FC = () => {
         <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
           Las plazas son limitadas para garantizar la calidad del entrenamiento y la atención personalizada a cada jugador.
         </p>
-        <Link to="/">
-          <Button variant="outline" className="px-10 py-4">
-            Contactar para próxima edición
-          </Button>
-        </Link>
+        <Button variant="outline" className="px-10 py-4" onClick={scrollToContact}>
+          Contactar para próxima edición
+        </Button>
       </section>
     </div>
   );

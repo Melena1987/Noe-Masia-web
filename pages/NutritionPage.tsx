@@ -3,6 +3,10 @@ import { Button } from '../components/Button';
 import { ArrowRight, Leaf, TrendingUp, Utensils, ClipboardList } from 'lucide-react';
 
 export const NutritionPage: React.FC = () => {
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="pt-24 bg-white min-h-screen text-brand-dark relative z-10">
       
@@ -111,7 +115,7 @@ export const NutritionPage: React.FC = () => {
               </p>
             </div>
             <div className="mt-10">
-              <Button variant="primary">
+              <Button variant="primary" onClick={scrollToContact}>
                 Agendar Consulta
               </Button>
             </div>
@@ -138,7 +142,7 @@ export const NutritionPage: React.FC = () => {
           <p className="text-gray-400 text-xl font-light mb-12">
             Acompañamiento en cada etapa de tu preparación, seas deportista amateur, de élite o en etapa de desarrollo.
           </p>
-          <Button variant="white" className="px-12 py-4 text-sm tracking-widest">
+          <Button variant="white" className="px-12 py-4 text-sm tracking-widest" onClick={scrollToContact}>
             Contactar ahora
           </Button>
         </div>
