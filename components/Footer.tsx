@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Instagram, Heart, Mail, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  useEffect(() => {
+    const handleHighlight = () => {
+      setIsHighlighted(true);
+      // Remove the highlight class after the animation finishes (0.5s * 2 iterations = 1s)
+      setTimeout(() => setIsHighlighted(false), 1000);
+    };
+
+    window.addEventListener('highlight-contact', handleHighlight);
+    return () => window.removeEventListener('highlight-contact', handleHighlight);
+  }, []);
+
+  // Determine classes based on state
+  const iconBaseClass = "transition-all duration-300";
+  const iconNormalClass = "text-gray-500 hover:text-brand-green";
+  const iconHighlightClass = "text-brand-green animate-pop-pulse";
+
   return (
     <footer id="contact" className="bg-brand-dark border-t border-gray-900 py-12 text-center">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
@@ -12,7 +30,7 @@ export const Footer: React.FC = () => {
             href="https://www.instagram.com/noemasia/?hl=es" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-brand-green transition-colors"
+            className={`${iconBaseClass} ${isHighlighted ? iconHighlightClass : iconNormalClass}`}
             aria-label="Instagram"
           >
             <Instagram size={24} />
@@ -21,14 +39,14 @@ export const Footer: React.FC = () => {
             href="https://wa.me/34645805177" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-brand-green transition-colors"
+            className={`${iconBaseClass} ${isHighlighted ? iconHighlightClass : iconNormalClass}`}
             aria-label="WhatsApp"
           >
             <MessageCircle size={24} />
           </a>
           <a 
             href="mailto:info@noemasia.com" 
-            className="text-gray-500 hover:text-brand-green transition-colors"
+            className={`${iconBaseClass} ${isHighlighted ? iconHighlightClass : iconNormalClass}`}
             aria-label="Email"
           >
             <Mail size={24} />

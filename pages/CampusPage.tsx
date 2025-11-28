@@ -12,6 +12,8 @@ export const CampusPage: React.FC = () => {
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    // Trigger the footer animation
+    window.dispatchEvent(new Event('highlight-contact'));
   };
 
   return (
