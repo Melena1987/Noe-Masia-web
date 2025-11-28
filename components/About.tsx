@@ -1,19 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { SectionProps } from '../types';
 
 export const About: React.FC<SectionProps> = ({ id }) => {
-  const [offset, setOffset] = useState(0);
+  const [parallaxY, setParallaxY] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setOffset(window.scrollY);
+      if (!sectionRef.current) return;
+
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const sectionTop = sectionRef.current.offsetTop;
+      const sectionHeight = sectionRef.current.offsetHeight;
+      
+      // Calculate center positions
+      const sectionCenter = sectionTop + sectionHeight / 2;
+      const viewportCenter = scrollY + viewportHeight / 2;
+      
+      // Calculate distance from center
+      const delta = viewportCenter - sectionCenter;
+      
+      // Apply parallax factor (0.15 means it moves 15% of the scroll speed)
+      setParallaxY(delta * 0.15);
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <section id={id} className="py-24 md:py-32 bg-brand-dark relative overflow-hidden">
+    <section id={id} ref={sectionRef} className="py-24 md:py-32 bg-brand-dark relative overflow-hidden">
       {/* Decorative background element */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gray-900/20 pointer-events-none -skew-x-12 transform translate-x-20"></div>
 
@@ -59,13 +77,13 @@ export const About: React.FC<SectionProps> = ({ id }) => {
           <div className="relative aspect-[3/4] overflow-hidden group">
              {/* Wrapper for Parallax */}
              <div 
-               className="w-full h-[120%] -mt-[10%]"
-               style={{ transform: `translateY(${(offset - 300) * 0.08}px)` }}
+               className="w-full h-[130%] -mt-[15%] will-change-transform"
+               style={{ transform: `translateY(${parallaxY}px)` }}
              >
                <img 
                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC2907_copia.jpg?alt=media&token=451882a3-b460-4a4a-8e3a-ff0495ff330d" 
                 alt="Noe Masià Portrait" 
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
               />
             </div>
             {/* Minimalist Border Frame */}
