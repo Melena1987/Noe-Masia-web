@@ -40,7 +40,7 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
         <div className="animate-fade-in-up pointer-events-auto">
           <div className="flex items-center gap-4 mb-4">
             <span className="h-[1px] w-12 bg-brand-green"></span>
-            <h2 className="text-gray-400 font-bold tracking-[0.2em] uppercase text-sm md:text-base">
+            <h2 className="text-[#9da08b] font-bold tracking-[0.2em] uppercase text-sm md:text-base">
               Professional Basketball Player
             </h2>
           </div>
