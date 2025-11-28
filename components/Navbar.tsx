@@ -59,12 +59,14 @@ export const Navbar: React.FC = () => {
             About
           </button>
           
-          <button 
-            onClick={(e) => handleNavigation(e, 'campus')}
-            className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-orange transition-colors bg-transparent border-none cursor-pointer"
+          <Link 
+            to="/campus"
+            className={`text-sm uppercase tracking-widest transition-colors ${
+              location.pathname === '/campus' ? 'text-brand-orange font-bold' : 'text-gray-300 hover:text-brand-orange'
+            }`}
           >
             Campus
-          </button>
+          </Link>
 
           <Link 
             to="/nutricion"
@@ -95,12 +97,13 @@ export const Navbar: React.FC = () => {
             About
           </button>
           
-          <button 
-            onClick={(e) => handleNavigation(e, 'campus')}
-            className="text-xl uppercase tracking-widest text-white hover:text-brand-orange bg-transparent border-none"
+          <Link 
+            to="/campus"
+            className="text-xl uppercase tracking-widest text-white hover:text-brand-orange"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Campus
-          </button>
+          </Link>
 
           <Link 
             to="/nutricion"

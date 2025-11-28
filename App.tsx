@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { NutritionPage } from './pages/NutritionPage';
+import { CampusPage } from './pages/CampusPage';
 import { useEffect } from 'react';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/nutricion" element={<NutritionPage />} />
+          <Route path="/campus" element={<CampusPage />} />
         </Routes>
       </main>
       <Footer />

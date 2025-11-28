@@ -2,6 +2,7 @@ import React from 'react';
 import { SectionProps } from '../types';
 import { Button } from './Button';
 import { Brain, Dumbbell, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Campus: React.FC<SectionProps> = ({ id }) => {
   return (
@@ -68,9 +69,11 @@ export const Campus: React.FC<SectionProps> = ({ id }) => {
           <p className="text-brand-orange uppercase tracking-[0.2em] text-xs font-bold mb-8 opacity-80">
             "Creemos en el esfuerzo individual silencioso"
           </p>
-          <Button variant="primary" className="px-10 py-4 text-sm">
-            Únete al equipo
-          </Button>
+          <Link to="/campus">
+            <Button variant="primary" className="px-10 py-4 text-sm">
+              Descubre el Campus
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
