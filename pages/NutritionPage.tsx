@@ -6,7 +6,7 @@ import { NutritionCTA } from '../components/nutrition/NutritionCTA';
 
 export const NutritionPage: React.FC = () => {
   useEffect(() => {
-    document.title = "Nutrición Deportiva y Salud | Noe Masià";
+    document.title = "Nutrición Deportiva y Salud | Noe Masiá";
   }, []);
 
   const scrollToContact = () => {

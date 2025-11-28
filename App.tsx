@@ -16,7 +16,7 @@ function App() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen font-sans selection:bg-brand-orange selection:text-white flex flex-col">
+    <div className="min-h-screen font-sans selection:bg-brand-green selection:text-brand-dark flex flex-col">
       <Navbar />
       <main className="flex-grow">
         <Routes>

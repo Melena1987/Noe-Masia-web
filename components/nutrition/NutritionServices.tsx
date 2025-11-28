@@ -9,7 +9,7 @@ export const NutritionServices: React.FC = () => {
            {/* Decorative Background */}
            <div className="absolute inset-0 bg-brand-dark/20"></div>
            <h2 className="relative z-10 text-3xl md:text-4xl font-light text-white">
-             ¿En qué puedo <span className="font-bold border-b-2 border-brand-orange pb-1">ayudarte</span>?
+             ¿En qué puedo <span className="font-bold border-b-2 border-brand-green pb-1">ayudarte</span>?
            </h2>
         </div>
 
@@ -17,7 +17,7 @@ export const NutritionServices: React.FC = () => {
           
           {/* Service 1 */}
           <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-orange transition-colors">
+            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
               <TrendingUp size={60} strokeWidth={1} />
             </div>
             <h3 className="text-xl font-bold mb-3 text-brand-dark">Rendimiento</h3>
@@ -28,7 +28,7 @@ export const NutritionServices: React.FC = () => {
 
           {/* Service 2 */}
           <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-orange transition-colors">
+            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
               <Utensils size={60} strokeWidth={1} />
             </div>
             <h3 className="text-xl font-bold mb-3 text-brand-dark">Alimentación</h3>
@@ -39,7 +39,7 @@ export const NutritionServices: React.FC = () => {
 
           {/* Service 3 */}
           <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-orange transition-colors">
+            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
               <Leaf size={60} strokeWidth={1} />
             </div>
             <h3 className="text-xl font-bold mb-3 text-brand-dark">Mujer Deportista</h3>
@@ -50,7 +50,7 @@ export const NutritionServices: React.FC = () => {
 
           {/* Service 4 */}
           <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-orange transition-colors">
+            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
               <ClipboardList size={60} strokeWidth={1} />
             </div>
             <h3 className="text-xl font-bold mb-3 text-brand-dark">Planificación</h3>

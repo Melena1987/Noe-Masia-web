@@ -3,7 +3,7 @@ import { Users, Zap, Target } from 'lucide-react';
 
 export const CampusValues: React.FC = () => {
   return (
-    <section className="py-32 px-6 bg-brand-orange text-brand-dark relative overflow-hidden">
+    <section className="py-32 px-6 bg-brand-green text-brand-dark relative overflow-hidden">
       {/* Abstract pattern */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10">
         <div className="w-64 h-64 border-8 border-brand-dark rounded-full absolute -top-10 -left-10"></div>

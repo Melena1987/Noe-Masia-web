@@ -7,7 +7,7 @@ import { CampusCTA } from '../components/campus/CampusCTA';
 
 export const CampusPage: React.FC = () => {
   useEffect(() => {
-    document.title = "Campus de Tecnificación Baloncesto | Noe Masià";
+    document.title = "Campus de Tecnificación Baloncesto | Noe Masiá";
   }, []);
 
   const scrollToContact = () => {
@@ -15,7 +15,7 @@ export const CampusPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-20 bg-brand-dark text-white min-h-screen font-sans selection:bg-brand-orange selection:text-white">
+    <div className="pt-20 bg-brand-dark text-white min-h-screen font-sans selection:bg-brand-green selection:text-brand-dark">
       <CampusHero />
       <CampusIntro />
       <CampusMethodology />

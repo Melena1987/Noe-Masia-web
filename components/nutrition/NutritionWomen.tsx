@@ -11,7 +11,7 @@ export const NutritionWomen: React.FC<NutritionWomenProps> = ({ onContactClick }
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         <div className="order-2 md:order-1">
           <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-brand-dark leading-tight">
-            La Mujer<br/><span className="text-brand-orange">Deportista</span>
+            La Mujer<br/><span className="text-brand-green">Deportista</span>
           </h3>
           <div className="space-y-6 text-gray-600 font-light text-lg leading-relaxed">
             <p>
@@ -36,7 +36,7 @@ export const NutritionWomen: React.FC<NutritionWomenProps> = ({ onContactClick }
               alt="Women in Sports" 
               className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
              />
-             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-orange z-[-1]"></div>
+             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-green z-[-1]"></div>
           </div>
         </div>
       </div>

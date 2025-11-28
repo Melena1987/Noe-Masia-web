@@ -22,8 +22,8 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-black z-0"></div>
         
         <img 
-          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764327296052_Noe_Masia.png?alt=media&token=c13087bc-eba3-419b-a0a5-d61defc21010"
-          alt="Noe Masià Background"
+          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764344002071_noe_masia_sport.jpeg?alt=media&token=1c1ce43f-93cc-4f90-b48f-ae33234934d3"
+          alt="Noe Masiá Background"
           className="absolute inset-0 w-full h-[120%] object-cover object-[center_20%] z-10 will-change-transform opacity-90"
           style={{ 
             transform: `translateY(${offset * 0.5}px)`, // Parallax: moves at half speed of scroll
@@ -39,17 +39,17 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
       <div className="relative z-30 w-full pb-24 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto pointer-events-none">
         <div className="animate-fade-in-up pointer-events-auto">
           <div className="flex items-center gap-4 mb-4">
-            <span className="h-[1px] w-12 bg-brand-orange"></span>
-            <h2 className="text-brand-orange font-bold tracking-[0.2em] uppercase text-sm md:text-base">
+            <span className="h-[1px] w-12 bg-brand-green"></span>
+            <h2 className="text-brand-green font-bold tracking-[0.2em] uppercase text-sm md:text-base">
               Professional Basketball Player
             </h2>
           </div>
           
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-8 drop-shadow-lg">
-            Noe<br />Masià
+            Noe<br />Masiá
           </h1>
           
-          <p className="max-w-2xl text-gray-100 text-lg md:text-xl font-light leading-relaxed border-l-2 border-brand-orange pl-6 backdrop-blur-md bg-black/20 py-4 pr-2 rounded-r-sm">
+          <p className="max-w-2xl text-gray-100 text-lg md:text-xl font-light leading-relaxed border-l-2 border-brand-green pl-6 backdrop-blur-md bg-black/20 py-4 pr-2 rounded-r-sm">
             Rendimiento integral: uniendo la experiencia del baloncesto profesional con la ciencia de la nutrición.
           </p>
         </div>
@@ -57,7 +57,7 @@ export const Hero: React.FC<SectionProps> = ({ id }) => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow z-30 opacity-80 mix-blend-overlay">
-        <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior: 'smooth'})}} className="text-white hover:text-brand-orange transition-colors duration-300 cursor-pointer">
+        <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior: 'smooth'})}} className="text-white hover:text-brand-green transition-colors duration-300 cursor-pointer">
           <ChevronDown size={40} strokeWidth={1} />
         </a>
       </div>

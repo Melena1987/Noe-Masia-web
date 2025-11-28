@@ -6,11 +6,11 @@ import { Nutrition } from '../components/Nutrition';
 
 export const HomePage: React.FC = () => {
   useEffect(() => {
-    document.title = "Noe Masià | Jugadora Profesional & Dietista Deportiva";
+    document.title = "Noe Masiá | Jugadora Profesional & Dietista Deportiva";
   }, []);
 
   return (
-    <div className="bg-brand-dark text-white">
+    <div className="bg-white">
       <Hero id="hero" />
       <About id="about" />
       <Campus id="campus" />

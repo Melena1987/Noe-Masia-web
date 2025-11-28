@@ -10,8 +10,8 @@ export const Button: React.FC<ButtonProps> = ({
   const baseStyles = "px-8 py-3 uppercase tracking-widest text-xs font-bold transition-all duration-300 transform hover:scale-105";
   
   const variants = {
-    primary: "bg-brand-orange text-white hover:bg-orange-600 shadow-lg shadow-orange-900/20",
-    outline: "border-2 border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white",
+    primary: "bg-brand-green text-brand-dark hover:bg-lime-400 shadow-lg shadow-lime-900/10",
+    outline: "border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-brand-dark",
     white: "bg-white text-brand-dark hover:bg-gray-200"
   };
 
