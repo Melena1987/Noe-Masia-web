@@ -12,7 +12,7 @@ export const NutritionHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-50 pt-32 pb-20 md:py-0">
+    <section className="relative min-h-[90vh] md:h-screen w-full overflow-hidden flex items-center justify-center bg-gray-50 pt-32 pb-20 md:py-0">
       
       {/* Parallax Background Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">

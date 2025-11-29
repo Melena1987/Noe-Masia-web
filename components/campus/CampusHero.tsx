@@ -2,7 +2,7 @@ import React from 'react';
 
 export const CampusHero: React.FC = () => {
   return (
-    <section className="relative h-[85vh] md:h-[70vh] flex items-center justify-center overflow-hidden pt-28 md:pt-0">
+    <section className="relative h-[85vh] md:h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-0">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/60 via-brand-dark/80 to-brand-dark z-10"></div>
