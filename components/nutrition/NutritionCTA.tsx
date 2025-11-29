@@ -107,7 +107,6 @@ export const NutritionCTA: React.FC = () => {
                 >
                   <option value="Plan Atleta">Plan Atleta Profesional</option>
                   <option value="Plan Salud">Plan Salud Integral</option>
-                  <option value="Plan Trimestral">Pack Trimestral</option>
                   <option value="Otro">Otro / Consulta General</option>
                 </select>
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
