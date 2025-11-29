@@ -60,6 +60,7 @@ export const NutritionCTA: React.FC = () => {
                   type="text" 
                   id="name" 
                   name="name" 
+                  autoComplete="name"
                   required
                   value={formState.name}
                   onChange={handleChange}
@@ -73,6 +74,7 @@ export const NutritionCTA: React.FC = () => {
                   type="tel" 
                   id="phone" 
                   name="phone"
+                  autoComplete="tel"
                   value={formState.phone}
                   onChange={handleChange}
                   className="w-full bg-white border border-gray-300 text-brand-dark px-4 py-3 focus:border-brand-green focus:outline-none transition-colors"
@@ -87,6 +89,7 @@ export const NutritionCTA: React.FC = () => {
                 type="email" 
                 id="email" 
                 name="email" 
+                autoComplete="email"
                 required
                 value={formState.email}
                 onChange={handleChange}
