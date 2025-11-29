@@ -32,11 +32,11 @@ export const NutritionCTA: React.FC = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start relative z-10">
         
         {/* Text Column */}
-        <div className="sticky top-24">
+        <div className="md:sticky md:top-24 text-center md:text-left">
           <h2 className="text-5xl md:text-7xl font-black uppercase mb-6 leading-none text-brand-dark">
             ¿Empezamos?
           </h2>
-          <div className="h-1 w-20 bg-brand-green mb-8"></div>
+          <div className="h-1 w-20 bg-brand-green mb-8 mx-auto md:mx-0"></div>
           <p className="text-gray-600 text-lg md:text-xl font-light mb-8 leading-relaxed">
             Si estás buscando mejorar tu rendimiento, recuperar tu salud o simplemente aprender a comer mejor, este es el momento.
           </p>

@@ -12,7 +12,7 @@ export const NutritionHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-50">
+    <section className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-50 pt-20 md:pt-0">
       
       {/* Parallax Background Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
@@ -28,7 +28,7 @@ export const NutritionHero: React.FC = () => {
         <div className="absolute inset-0 bg-white/85 z-10"></div>
       </div>
       
-      <div className="max-w-4xl mx-auto px-6 relative z-20 text-center -mt-20">
+      <div className="max-w-4xl mx-auto px-6 relative z-20 text-center md:-mt-20">
         <span className="text-brand-green font-bold tracking-[0.3em] text-xs uppercase block mb-6 animate-fade-in-up">
           Dietista Deportiva | Antropometrista ISAK 1 | Jugadora PRO
         </span>

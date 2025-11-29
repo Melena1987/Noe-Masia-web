@@ -7,7 +7,7 @@ interface NutritionWomenProps {
 
 export const NutritionWomen: React.FC<NutritionWomenProps> = ({ onContactClick }) => {
   return (
-    <section className="py-24 bg-brand-light relative">
+    <section className="py-24 bg-brand-light relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         <div className="order-2 md:order-1">
           <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-brand-dark leading-tight">
