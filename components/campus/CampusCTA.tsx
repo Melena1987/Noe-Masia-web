@@ -108,7 +108,7 @@ DATOS DE INSCRIPCIÓN:
               </div>
               <div className="space-y-1">
                  <label className="text-xs font-bold uppercase text-gray-500">Talla Camiseta</label>
-                 <select name="shirtSize" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
+                 <select name="shirtSize" autoComplete="off" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
                     <option value="">Selecciona talla</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>
@@ -165,7 +165,7 @@ DATOS DE INSCRIPCIÓN:
               
               <div className="space-y-1 md:col-span-2">
                 <label className="text-xs font-bold uppercase text-gray-500">Otras cosas importantes a destacar</label>
-                <textarea name="otherInfo" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark"></textarea>
+                <textarea name="otherInfo" autoComplete="off" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark"></textarea>
               </div>
             </div>
 
