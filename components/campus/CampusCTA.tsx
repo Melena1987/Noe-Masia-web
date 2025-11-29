@@ -95,20 +95,20 @@ DATOS DE INSCRIPCIÓN:
               {/* Personal Info */}
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Nombre Completo Jugador/a</label>
-                <input required name="playerName" value={formData.playerName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" placeholder="Nombre y Apellidos" />
+                <input required name="playerName" value={formData.playerName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Nombre y Apellidos" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Fecha Nacimiento</label>
-                <input required name="birthDate" value={formData.birthDate} onChange={handleChange} type="date" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="birthDate" value={formData.birthDate} onChange={handleChange} type="date" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
               
               <div className="space-y-1">
                  <label className="text-xs font-bold uppercase text-gray-500">Edad</label>
-                 <input required name="age" value={formData.age} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" placeholder="Años" />
+                 <input required name="age" value={formData.age} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Años" />
               </div>
               <div className="space-y-1">
                  <label className="text-xs font-bold uppercase text-gray-500">Talla Camiseta</label>
-                 <select name="shirtSize" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white">
+                 <select name="shirtSize" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
                     <option value="">Selecciona talla</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>
@@ -122,50 +122,50 @@ DATOS DE INSCRIPCIÓN:
               {/* Tutor Info */}
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Nombre Tutor/a</label>
-                <input required name="tutorName" value={formData.tutorName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="tutorName" value={formData.tutorName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">DNI Tutor/a</label>
-                <input required name="tutorDni" value={formData.tutorDni} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="tutorDni" value={formData.tutorDni} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
 
               {/* Contact Info */}
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Correo Electrónico</label>
-                <input required name="email" value={formData.email} onChange={handleChange} type="email" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="email" value={formData.email} onChange={handleChange} type="email" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Dirección</label>
-                <input required name="address" value={formData.address} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="address" value={formData.address} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
 
               {/* Sport Info */}
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Club Actual</label>
-                <input required name="club" value={formData.club} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="club" value={formData.club} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Categoría</label>
-                <input required name="category" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="category" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
               <div className="space-y-1 md:col-span-2">
                 <label className="text-xs font-bold uppercase text-gray-500">Años jugando a baloncesto</label>
-                <input required name="yearsPlaying" value={formData.yearsPlaying} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" />
+                <input required name="yearsPlaying" value={formData.yearsPlaying} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
               </div>
 
               {/* Health Info */}
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Alergias</label>
-                <input name="allergies" value={formData.allergies} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" placeholder="Ninguna o especificar" />
+                <input name="allergies" value={formData.allergies} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ninguna o especificar" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Intolerancias</label>
-                <input name="intolerances" value={formData.intolerances} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none" placeholder="Ninguna o especificar" />
+                <input name="intolerances" value={formData.intolerances} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ninguna o especificar" />
               </div>
               
               <div className="space-y-1 md:col-span-2">
                 <label className="text-xs font-bold uppercase text-gray-500">Otras cosas importantes a destacar</label>
-                <textarea name="otherInfo" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none"></textarea>
+                <textarea name="otherInfo" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark"></textarea>
               </div>
             </div>
 
