@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
             onClick={(e) => handleNavigation(e, 'about')}
             className={`text-sm uppercase tracking-widest transition-colors bg-transparent border-none cursor-pointer ${linkDefaultColor}`}
           >
-            About
+            Noe Masiá
           </button>
           
           <Link 
@@ -106,7 +106,7 @@ export const Navbar: React.FC = () => {
             onClick={(e) => handleNavigation(e, 'about')}
             className="text-xl uppercase tracking-widest text-white hover:text-brand-green bg-transparent border-none"
           >
-            About
+            Noe Masiá
           </button>
           
           <Link 
