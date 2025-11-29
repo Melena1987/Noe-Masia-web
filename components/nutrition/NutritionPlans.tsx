@@ -8,7 +8,7 @@ interface NutritionPlansProps {
 
 export const NutritionPlans: React.FC<NutritionPlansProps> = ({ onContactClick }) => {
   return (
-    <section className="py-24 bg-gray-50 relative z-10" id="plans">
+    <section className="py-24 bg-gray-50 relative z-10 overflow-hidden" id="plans">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black uppercase text-brand-dark mb-6">

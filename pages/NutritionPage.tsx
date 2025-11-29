@@ -15,7 +15,7 @@ export const NutritionPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen text-brand-dark relative z-10">
+    <div className="bg-white min-h-screen text-brand-dark relative z-10 overflow-x-hidden">
       <NutritionHero />
       <NutritionServices />
       <NutritionPlans onContactClick={scrollToContact} />

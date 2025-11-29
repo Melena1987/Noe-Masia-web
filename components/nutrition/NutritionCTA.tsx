@@ -25,15 +25,15 @@ export const NutritionCTA: React.FC = () => {
   };
 
   return (
-    <section id="nutrition-contact" className="py-24 bg-white text-brand-dark px-6 relative overflow-hidden">
+    <section id="nutrition-contact" className="py-24 bg-white text-brand-dark px-4 md:px-6 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-green/5 skew-x-12 transform translate-x-20 pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start relative z-10">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start relative z-10">
         
         {/* Text Column */}
         <div className="md:sticky md:top-24 text-center md:text-left">
-          <h2 className="text-5xl md:text-7xl font-black uppercase mb-6 leading-none text-brand-dark">
+          <h2 className="text-4xl md:text-7xl font-black uppercase mb-6 leading-none text-brand-dark">
             ¿Empezamos?
           </h2>
           <div className="h-1 w-20 bg-brand-green mb-8 mx-auto md:mx-0"></div>
@@ -51,7 +51,7 @@ export const NutritionCTA: React.FC = () => {
         </div>
 
         {/* Form Column */}
-        <div className="bg-gray-50 p-8 md:p-10 rounded-sm border border-gray-200 shadow-2xl">
+        <div className="bg-gray-50 p-6 md:p-10 rounded-sm border border-gray-200 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
