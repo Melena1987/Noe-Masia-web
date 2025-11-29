@@ -1,65 +1,45 @@
 import React from 'react';
-import { TrendingUp, Utensils, Leaf, ClipboardList } from 'lucide-react';
+import { Brain, Heart, Microscope } from 'lucide-react';
 
 export const NutritionServices: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16 bg-brand-gray text-white py-12 px-4 rounded-sm shadow-xl relative overflow-hidden">
-           {/* Decorative Background */}
-           <div className="absolute inset-0 bg-brand-dark/20"></div>
-           <h2 className="relative z-10 text-3xl md:text-4xl font-light text-white">
-             ¿En qué puedo <span className="font-bold border-b-2 border-brand-green pb-1">ayudarte</span>?
-           </h2>
+    <section className="py-20 bg-white">
+      <div className="max-w-4xl mx-auto px-6">
+        
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black uppercase text-brand-dark mb-6">
+            ¿Cómo trabajo?
+          </h2>
+          <div className="h-1 w-24 bg-brand-green mx-auto mb-8"></div>
+          <p className="text-xl text-gray-600 font-light leading-relaxed">
+            "No creo en las dietas de cajón ni en los milagros. Trabajo desde la <strong className="text-brand-dark font-bold">educación nutricional</strong>, la <strong className="text-brand-dark font-bold">evidencia científica</strong> y la <strong className="text-brand-dark font-bold">empatía</strong>."
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-200 divide-y md:divide-y-0 md:divide-x divide-gray-200 shadow-sm">
-          
-          {/* Service 1 */}
-          <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
-              <TrendingUp size={60} strokeWidth={1} />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-brand-dark">Rendimiento</h3>
-            <p className="text-sm text-gray-600 font-light leading-relaxed">
-              Mejorar tu rendimiento deportivo a través de estrategias adaptadas a tu disciplina.
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
+          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
+            <Microscope className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
+            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Ciencia</h3>
+            <p className="text-sm text-gray-500 font-light">
+              Sin modas. Protocolos basados en los últimos estudios fisiológicos y clínicos.
             </p>
           </div>
-
-          {/* Service 2 */}
-          <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
-              <Utensils size={60} strokeWidth={1} />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-brand-dark">Alimentación</h3>
-            <p className="text-sm text-gray-600 font-light leading-relaxed">
-              Establecer una alimentación adecuada, sostenible y flexible para tu día a día.
+          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
+            <Brain className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
+            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Educación</h3>
+            <p className="text-sm text-gray-500 font-light">
+              Mi objetivo es que aprendas a gestionar tu alimentación de forma autónoma.
             </p>
           </div>
-
-          {/* Service 3 */}
-          <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
-              <Leaf size={60} strokeWidth={1} />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-brand-dark">Mujer Deportista</h3>
-            <p className="text-sm text-gray-600 font-light leading-relaxed">
-              Estrategias específicas para la fisiología femenina y el ciclo menstrual.
+          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
+            <Heart className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
+            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Contexto</h3>
+            <p className="text-sm text-gray-500 font-light">
+              Adaptado a tu realidad, tus horarios, tu estrés y tus gustos personales.
             </p>
           </div>
-
-          {/* Service 4 */}
-          <div className="p-10 flex flex-col items-center text-center hover:bg-brand-light transition-colors duration-300 group">
-            <div className="w-16 h-16 mb-6 text-brand-dark group-hover:text-brand-green transition-colors">
-              <ClipboardList size={60} strokeWidth={1} />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-brand-dark">Planificación</h3>
-            <p className="text-sm text-gray-600 font-light leading-relaxed">
-              Planificación nutricional detallada para semanas de carga y competiciones.
-            </p>
-          </div>
-
         </div>
+
       </div>
     </section>
   );
