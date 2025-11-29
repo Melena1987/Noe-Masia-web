@@ -8,6 +8,7 @@ export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
+  const isNutrition = location.pathname === '/nutricion';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,14 +39,25 @@ export const Navbar: React.FC = () => {
     }
   };
 
+  // Logic for visual style:
+  // Starts transparent (unless scrolled).
+  // On Nutrition page, transparent mode needs dark text because background is light.
+  const isTransparent = !isScrolled;
+  const useDarkText = isTransparent && isNutrition;
+
+  const navClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+    isScrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-8'
+  }`;
+
+  const logoColor = useDarkText ? 'text-brand-dark' : 'text-white';
+  const linkDefaultColor = useDarkText ? 'text-brand-dark/80 hover:text-brand-green' : 'text-gray-300 hover:text-brand-green';
+  const linkActiveColor = "text-brand-green font-bold";
+  const menuButtonColor = useDarkText ? 'text-brand-dark' : 'text-white';
+
   return (
-    <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        isScrolled || !isHome ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-8'
-      }`}
-    >
+    <nav className={navClasses}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold tracking-[0.2em] text-white uppercase relative group z-50">
+        <Link to="/" className={`text-2xl font-bold tracking-[0.2em] uppercase relative group z-50 ${logoColor}`}>
           Noe Masiá
           <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-brand-green transition-all duration-300 group-hover:w-full"></span>
         </Link>
@@ -54,7 +66,7 @@ export const Navbar: React.FC = () => {
         <div className="hidden md:flex space-x-12">
           <button 
             onClick={(e) => handleNavigation(e, 'about')}
-            className="text-sm uppercase tracking-widest text-gray-300 hover:text-brand-green transition-colors bg-transparent border-none cursor-pointer"
+            className={`text-sm uppercase tracking-widest transition-colors bg-transparent border-none cursor-pointer ${linkDefaultColor}`}
           >
             About
           </button>
@@ -62,7 +74,7 @@ export const Navbar: React.FC = () => {
           <Link 
             to="/campus"
             className={`text-sm uppercase tracking-widest transition-colors ${
-              location.pathname === '/campus' ? 'text-brand-green font-bold' : 'text-gray-300 hover:text-brand-green'
+              location.pathname === '/campus' ? linkActiveColor : linkDefaultColor
             }`}
           >
             Campus
@@ -71,7 +83,7 @@ export const Navbar: React.FC = () => {
           <Link 
             to="/nutricion"
             className={`text-sm uppercase tracking-widest transition-colors ${
-              location.pathname === '/nutricion' ? 'text-brand-green font-bold' : 'text-gray-300 hover:text-brand-green'
+              location.pathname === '/nutricion' ? linkActiveColor : linkDefaultColor
             }`}
           >
             Nutrición
@@ -80,7 +92,7 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-white z-50"
+          className={`md:hidden z-50 ${isMobileMenuOpen ? 'text-white' : menuButtonColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
