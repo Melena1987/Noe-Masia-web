@@ -51,7 +51,7 @@ export const NutritionCTA: React.FC = () => {
         </div>
 
         {/* Form Column */}
-        <div className="bg-gray-50 p-6 md:p-10 rounded-sm border border-gray-200 shadow-2xl">
+        <div className="bg-gray-50 p-6 md:p-10 rounded-sm border border-gray-200 shadow-2xl w-full max-w-md mx-auto md:max-w-none">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
