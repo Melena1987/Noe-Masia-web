@@ -19,7 +19,7 @@ export const Campus: React.FC<SectionProps> = ({ id }) => {
         <div className="text-center mb-16 flex flex-col items-center">
           
           {/* Logo Integration */}
-          <div className="mb-8 w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-brand-lime overflow-hidden shadow-2xl shadow-black/50 bg-white">
+          <div className="mb-8 w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-2xl shadow-black/50 bg-white">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764320049135_587736943_17845357059615820_1696571582367293604_n_400x400.jpg?alt=media&token=438fe860-3d50-432e-a833-bddb9353339c" 
               alt="Logo Campus Noe Masiá" 
