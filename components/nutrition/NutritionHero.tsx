@@ -12,7 +12,7 @@ export const NutritionHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-50 pt-28 md:pt-0">
+    <section className="relative min-h-[90vh] md:min-h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-50 pt-32 pb-20 md:py-0">
       
       {/* Parallax Background Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
@@ -32,12 +32,12 @@ export const NutritionHero: React.FC = () => {
         <span className="text-brand-green font-bold tracking-[0.3em] text-xs uppercase block mb-6 animate-fade-in-up">
           Dietista Deportiva | Antropometrista ISAK 1 | Jugadora PRO
         </span>
-        <h1 className="text-5xl md:text-7xl font-black uppercase text-brand-dark mb-8 leading-[0.9] animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+        <h1 className="text-4xl md:text-7xl font-black uppercase text-brand-dark mb-8 leading-[0.9] animate-fade-in-up" style={{animationDelay: '0.1s'}}>
           Nutrición<br/>Deportiva
         </h1>
         <div className="h-1 w-24 bg-brand-green mx-auto mb-10 animate-fade-in-up" style={{animationDelay: '0.2s'}}></div>
         
-        <div className="text-lg md:text-xl font-light text-brand-dark leading-relaxed space-y-6 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+        <div className="text-base md:text-xl font-light text-brand-dark leading-relaxed space-y-6 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.3s'}}>
           <p>
             Mi nombre es <strong className="font-bold">Noelia Masiá</strong>. A lo largo de mi carrera deportiva, 
             he vivido de primera mano lo que significa llevar una vida dedicada al alto rendimiento.
