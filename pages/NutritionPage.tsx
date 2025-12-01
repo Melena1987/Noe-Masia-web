@@ -43,13 +43,21 @@ export const NutritionPage: React.FC = () => {
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
            <div className="aspect-square overflow-hidden rounded-sm">
-             <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800" alt="Healthy Food" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+             <img 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631710_noe_masia_nutrici_n.jpg?alt=media&token=d984aa7c-f080-4c3a-8129-78e004dabe15" 
+              alt="Noelia Masiá Nutrición" 
+              className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+            />
            </div>
            <div className="aspect-square overflow-hidden rounded-sm md:mt-12">
              <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" alt="Healthy Bowl" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
            </div>
            <div className="aspect-square overflow-hidden rounded-sm">
-             <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800" alt="Avocado Toast" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+             <img 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631709_noe_masia_nutricion.jpg?alt=media&token=92290d1a-4f66-4246-ba99-a7bbd3ed4631" 
+              alt="Consulta Nutrición" 
+              className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+            />
            </div>
            <div className="aspect-square overflow-hidden rounded-sm md:mt-12">
              <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&q=80&w=800" alt="Fresh Salad" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
