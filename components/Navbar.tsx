@@ -18,6 +18,18 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleNavigation = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
@@ -40,19 +52,24 @@ export const Navbar: React.FC = () => {
   };
 
   // Logic for visual style:
-  // Starts transparent (unless scrolled).
-  // On Nutrition page, transparent mode needs dark text because background is light.
-  const isTransparent = !isScrolled;
-  const useDarkText = isTransparent && isNutrition;
+  // We force the "unscrolled" (transparent) style when the mobile menu is open
+  // to ensure the header blends seamlessly with the menu overlay and doesn't "deform"
+  // or change height/background if the user attempts to scroll.
+  const showScrolledStyle = isScrolled && !isMobileMenuOpen;
+  
+  const isTransparent = !showScrolledStyle;
+  // Use dark text only if we are on the Nutrition page, transparent mode, AND menu is CLOSED.
+  // If menu is open, we need white text to contrast with the dark menu background.
+  const useDarkText = isTransparent && isNutrition && !isMobileMenuOpen;
 
   const navClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-    isScrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-8'
+    showScrolledStyle ? 'bg-brand-dark/95 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-8'
   }`;
 
   const logoColor = useDarkText ? 'text-brand-dark' : 'text-white';
   const linkDefaultColor = useDarkText ? 'text-brand-dark/80 hover:text-brand-green' : 'text-gray-300 hover:text-brand-green';
   const linkActiveColor = "text-brand-green font-bold";
-  const menuButtonColor = useDarkText ? 'text-brand-dark' : 'text-white';
+  const menuButtonColor = (isMobileMenuOpen || !useDarkText) ? 'text-white' : 'text-brand-dark';
 
   return (
     <nav className={navClasses}>
@@ -92,7 +109,7 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button 
-          className={`md:hidden z-50 ${isMobileMenuOpen ? 'text-white' : menuButtonColor}`}
+          className={`md:hidden z-50 ${menuButtonColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
