@@ -1,49 +1,67 @@
 import React from 'react';
-import { MapPin, Calendar, Clock, AlertCircle } from 'lucide-react';
+import { MapPin, Calendar } from 'lucide-react';
 
 export const CampusIntro: React.FC = () => {
   return (
-    <section className="py-24 px-6 relative bg-brand-dark">
+    <section className="py-24 px-6 relative bg-brand-dark overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* Key Info Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20 border-b border-brand-lime/30 pb-12">
-          <div className="flex items-start gap-4">
-             <Calendar className="text-brand-lime w-8 h-8 flex-shrink-0" />
-             <div>
-               <h4 className="text-white font-bold uppercase tracking-wider">Fechas</h4>
-               <p className="text-gray-400 font-light">13 - 18 Julio</p>
-               <p className="text-gray-500 text-xs mt-1 italic">(A valorar sede Moncofa 1ª semana Agosto)</p>
-             </div>
-          </div>
-          <div className="flex items-start gap-4">
-             <MapPin className="text-brand-lime w-8 h-8 flex-shrink-0" />
-             <div>
-               <h4 className="text-white font-bold uppercase tracking-wider">Lugar</h4>
-               <p className="text-gray-400 font-light">Pabellón JA Pineda</p>
-               <p className="text-gray-400 font-light">Estepona</p>
-             </div>
-          </div>
-          <div className="flex items-start gap-4">
-             <Clock className="text-brand-lime w-8 h-8 flex-shrink-0" />
-             <div>
-               <h4 className="text-white font-bold uppercase tracking-wider">Horario</h4>
-               <p className="text-gray-400 font-light">10:00h - 14:30h</p>
-               <p className="text-gray-500 text-xs mt-1">Llegada Lunes: 09:00h</p>
-             </div>
-          </div>
-          <div className="flex items-start gap-4">
-             <AlertCircle className="text-brand-lime w-8 h-8 flex-shrink-0" />
-             <div>
-               <h4 className="text-white font-bold uppercase tracking-wider">Servicios</h4>
-               <p className="text-gray-400 font-light text-sm">Bar/Cafetería disponible.</p>
-               <p className="text-gray-400 font-light text-sm">Opción menú reserva anticipada.</p>
-             </div>
+        {/* Locations / Sedes Section */}
+        <div className="mb-24">
+          <h2 className="text-center text-3xl font-black uppercase text-white mb-12">Nuestras Sedes</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            
+            {/* Estepona */}
+            <div className="bg-white/5 border border-brand-lime/30 p-8 rounded-sm relative overflow-hidden group hover:bg-white/10 transition-colors">
+               <div className="flex justify-between items-start mb-6">
+                 <div>
+                   <h3 className="text-2xl font-black uppercase text-brand-lime">Estepona</h3>
+                   <p className="text-white text-sm tracking-widest uppercase mt-1">Málaga</p>
+                 </div>
+                 <MapPin className="text-white/50" />
+               </div>
+               
+               <div className="space-y-4 border-t border-white/10 pt-6">
+                 <div className="flex items-center gap-3 text-gray-300">
+                   <Calendar size={18} className="text-brand-lime"/>
+                   <span>13 - 18 Julio</span>
+                 </div>
+                 <p className="text-sm text-gray-400 font-light">
+                   Pabellón JA Pineda. Unas instalaciones de primer nivel para el desarrollo técnico y táctico.
+                 </p>
+               </div>
+            </div>
+
+            {/* Moncofa - Placeholder/Coming Soon */}
+            <div className="bg-white/5 border border-white/10 p-8 rounded-sm relative overflow-hidden group opacity-70 hover:opacity-100 transition-opacity">
+               <div className="absolute top-4 right-4 bg-brand-lime text-brand-dark text-xs font-bold px-3 py-1 uppercase tracking-wider transform rotate-12">
+                 Próximamente
+               </div>
+               <div className="flex justify-between items-start mb-6">
+                 <div>
+                   <h3 className="text-2xl font-black uppercase text-white">Moncofa</h3>
+                   <p className="text-white text-sm tracking-widest uppercase mt-1">Castellón</p>
+                 </div>
+                 <MapPin className="text-white/50" />
+               </div>
+               
+               <div className="space-y-4 border-t border-white/10 pt-6">
+                 <div className="flex items-center gap-3 text-gray-300">
+                   <Calendar size={18} className="text-white"/>
+                   <span>1ª Semana Agosto (A confirmar)</span>
+                 </div>
+                 <p className="text-sm text-gray-400 font-light">
+                   Trabajando para llevar la experiencia Noe Masiá a la costa de Castellón.
+                 </p>
+               </div>
+            </div>
+
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
+        {/* Philosophy & Action Images */}
+        <div className="grid md:grid-cols-12 gap-12 items-center">
+          <div className="md:col-span-6">
             <h2 className="text-3xl md:text-5xl font-black uppercase mb-8 leading-tight text-white">
               Entendiendo el <span className="text-brand-lime">Rendimiento</span>
             </h2>
@@ -60,13 +78,22 @@ export const CampusIntro: React.FC = () => {
             </div>
           </div>
           
-          <div className="relative">
-            <div className="absolute inset-0 bg-brand-lime/20 transform rotate-3 rounded-sm z-0"></div>
-            <img 
+          <div className="md:col-span-6 grid grid-cols-2 gap-4">
+             {/* Dynamic playing images */}
+            <div className="relative transform translate-y-8">
+               <img 
               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC0086_copia.jpg?alt=media&token=229254d8-b280-46ff-8880-25ac6a1f1efd"
-              alt="Noe Masiá Campus Portrait"
-              className="relative z-10 w-full h-auto grayscale hover:grayscale-0 transition-all duration-500 rounded-sm shadow-2xl"
+              alt="Noe Masiá Portrait"
+              className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500"
             />
+            </div>
+            <div className="relative transform -translate-y-8">
+               <img 
+                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764344002071_noe_masia_sport.jpeg?alt=media&token=1c1ce43f-93cc-4f90-b48f-ae33234934d3" 
+                 alt="Noe Masiá Playing Action"
+                 className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
+               />
+            </div>
           </div>
         </div>
       </div>

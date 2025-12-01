@@ -1,41 +1,28 @@
 import React from 'react';
-import { Brain, Heart, Microscope } from 'lucide-react';
 
 export const NutritionServices: React.FC = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-6">
         
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black uppercase text-brand-dark mb-6">
-            ¿Cómo trabajo?
+        <div className="text-center mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold uppercase text-brand-dark mb-4 tracking-widest">
+            Metodología de trabajo
           </h2>
-          <div className="h-1 w-24 bg-brand-green mx-auto mb-8"></div>
-          <p className="text-xl text-gray-600 font-light leading-relaxed">
-            "No creo en las dietas de cajón ni en los milagros. Trabajo desde la <strong className="text-brand-dark font-bold">educación nutricional</strong>, la <strong className="text-brand-dark font-bold">evidencia científica</strong> y la <strong className="text-brand-dark font-bold">empatía</strong>."
-          </p>
+          <div className="h-0.5 w-12 bg-brand-green mx-auto mb-8"></div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
-            <Microscope className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
-            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Ciencia</h3>
-            <p className="text-sm text-gray-500 font-light">
-              Sin modas. Protocolos basados en los últimos estudios fisiológicos y clínicos.
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
-            <Brain className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
-            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Educación</h3>
-            <p className="text-sm text-gray-500 font-light">
-              Mi objetivo es que aprendas a gestionar tu alimentación de forma autónoma.
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center p-6 bg-brand-light rounded-sm">
-            <Heart className="w-10 h-10 text-brand-green mb-4" strokeWidth={1.5} />
-            <h3 className="font-bold uppercase text-sm tracking-widest mb-2">Contexto</h3>
-            <p className="text-sm text-gray-500 font-light">
-              Adaptado a tu realidad, tus horarios, tu estrés y tus gustos personales.
+        <div className="prose prose-lg mx-auto text-center text-gray-600 font-light leading-relaxed">
+          <p className="mb-8 text-xl">
+            Me baso en conocimientos, evidencia y sobre todo la experiencia y situación de la persona.
+          </p>
+          <p className="mb-12">
+            Sin dietas ni restricciones establecidas, solamente entendiendo qué necesita la persona y cuál es la base del problema que podemos solucionar con la herramienta que sea necesaria en cada caso.
+          </p>
+          
+          <div className="bg-gray-50 p-8 md:p-12 rounded-sm border border-gray-100 mt-12">
+            <p className="text-2xl md:text-3xl font-serif italic text-brand-green">
+              "Hablemos más de guías y soporte, antes que de dietas."
             </p>
           </div>
         </div>
