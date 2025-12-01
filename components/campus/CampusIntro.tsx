@@ -93,11 +93,16 @@ export const CampusIntro: React.FC = () => {
                />
              </div>
              
-             {/* Right Column - 1 Image Staggered */}
-             <div className="transform md:-translate-y-4">
+             {/* Right Column - 2 Images Staggered */}
+             <div className="space-y-4 transform md:-translate-y-4">
                <img 
                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848893_CAB_Estepona_13_10-070.jpg?alt=media&token=5f5ffe72-1013-4931-bd77-beb619c91218" 
                  alt="Noe Masiá Action Shot 3"
+                 className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
+               />
+               <img 
+                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC0112_copia.jpg?alt=media&token=d62cb7a0-2aa1-47b9-b6c4-bf703dc81409" 
+                 alt="Noe Masiá Action Shot 4"
                  className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
                />
              </div>
