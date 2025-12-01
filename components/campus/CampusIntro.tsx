@@ -60,8 +60,8 @@ export const CampusIntro: React.FC = () => {
         </div>
 
         {/* Philosophy & Action Images */}
-        <div className="grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-6">
+        <div className="grid md:grid-cols-12 gap-12 items-start">
+          <div className="md:col-span-5 sticky top-24">
             <h2 className="text-3xl md:text-5xl font-black uppercase mb-8 leading-tight text-white">
               Entendiendo el <span className="text-brand-lime">Rendimiento</span>
             </h2>
@@ -78,22 +78,29 @@ export const CampusIntro: React.FC = () => {
             </div>
           </div>
           
-          <div className="md:col-span-6 grid grid-cols-2 gap-4">
-             {/* Dynamic playing images */}
-            <div className="relative transform translate-y-8">
+          <div className="md:col-span-7 grid grid-cols-2 gap-4">
+             {/* Left Column - 2 Stacked Images */}
+             <div className="space-y-4 transform md:translate-y-12">
                <img 
-              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC0086_copia.jpg?alt=media&token=229254d8-b280-46ff-8880-25ac6a1f1efd"
-              alt="Noe Masiá Portrait"
-              className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500"
-            />
-            </div>
-            <div className="relative transform -translate-y-8">
-               <img 
-                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764344002071_noe_masia_sport.jpeg?alt=media&token=1c1ce43f-93cc-4f90-b48f-ae33234934d3" 
-                 alt="Noe Masiá Playing Action"
+                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894_8_Octubre-34.jpg?alt=media&token=a5bbd6fa-b235-4b50-aa86-8d81382a9192" 
+                 alt="Noe Masiá Action Shot 1"
                  className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
                />
-            </div>
+                <img 
+                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894__DSC0164_copia.jpg?alt=media&token=0b62211c-8a63-4402-a661-1f5f409a843a" 
+                 alt="Noe Masiá Action Shot 2"
+                 className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
+               />
+             </div>
+             
+             {/* Right Column - 1 Image Staggered */}
+             <div className="transform md:-translate-y-4">
+               <img 
+                 src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848893_CAB_Estepona_13_10-070.jpg?alt=media&token=5f5ffe72-1013-4931-bd77-beb619c91218" 
+                 alt="Noe Masiá Action Shot 3"
+                 className="w-full h-auto rounded-sm shadow-xl grayscale hover:grayscale-0 transition-all duration-500 object-cover"
+               />
+             </div>
           </div>
         </div>
       </div>
