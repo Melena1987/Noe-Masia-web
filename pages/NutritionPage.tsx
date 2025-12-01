@@ -8,7 +8,7 @@ import { Testimonials } from '../components/Testimonials';
 // Mock data for testimonials
 const testimonials = [
   {
-    name: "Ana Pocek",
+    name: "Elena R.",
     role: "Jugadora Profesional LF Endesa",
     text: "Trabajar con Noe ha cambiado mi forma de entender la energía en pista. No solo es dieta, es entender qué gasolina necesito en cada momento del partido.",
   },
