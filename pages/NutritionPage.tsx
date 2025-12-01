@@ -11,7 +11,6 @@ const testimonials = [
     name: "Ana Pocek",
     role: "Jugadora Profesional LF Endesa",
     text: "Trabajar con Noe ha cambiado mi forma de entender la energía en pista. No solo es dieta, es entender qué gasolina necesito en cada momento del partido.",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764320049135_ana_pocek.jpg?alt=media&token=placeholder" // Using placeholder logic in component if link fails
   },
   {
     name: "Marta Soriano",
