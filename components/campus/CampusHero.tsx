@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const CampusHero: React.FC = () => {
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setOffset(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className="relative h-[85vh] md:h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-0 bg-brand-dark">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/40 via-brand-dark/70 to-brand-dark z-10"></div>
         <img 
-          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894_ESTEPONA_-38.jpg?alt=media&token=b7bc2b58-9295-45ef-b632-cb62b8ba6fac"
+          src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764609571914_1764315848894_WhatsApp_Image_2025-10-04_at_12.59.55.jpeg?alt=media&token=f4a883b9-f971-4223-82bc-91d6108b0c52"
           alt="Campus Basket Action"
-          className="w-full h-full object-cover object-top opacity-50"
+          className="w-full h-[120%] object-cover object-center opacity-50 will-change-transform"
+          style={{ transform: `translateY(${offset * 0.5}px)` }}
         />
       </div>
 
