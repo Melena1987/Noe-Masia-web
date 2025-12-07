@@ -55,7 +55,7 @@ DATOS DE INSCRIPCIÓN:
 16. Talla Camiseta: ${formData.shirtSize}
 17. Método Pago Preferido: ${formData.paymentMethod}
     `;
-    window.location.href = `mailto:info@noemasia.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:campus@noemasia.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
