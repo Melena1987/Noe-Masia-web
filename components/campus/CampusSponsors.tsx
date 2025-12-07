@@ -31,11 +31,11 @@ export const CampusSponsors: React.FC = () => {
         {/* Single line of logos */}
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
           {SPONSORS.map((sponsor, index) => {
-            // The first two logos are horizontal text, so we give them more width
-            // to make them appear visually balanced with the square crests.
+            // The first two logos are horizontal text-based, so we give them significantly more width and height
+            // to make them appear visually balanced with the square crests, especially Melena which was looking small.
             const isHorizontal = index < 2;
             const sizeClass = isHorizontal 
-              ? "w-48 h-20 md:w-64 md:h-28" // Wider container for text logos
+              ? "w-56 h-28 md:w-80 md:h-40" // Increased dimensions for better visibility
               : "w-20 h-20 md:w-28 md:h-28"; // Square container for crests
 
             return (
