@@ -1,5 +1,24 @@
 import React from 'react';
 
+const SPONSORS = [
+  {
+    name: "Jugador Doce",
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_jugador_doce__400x400.png?alt=media&token=40a0f353-08a1-47ee-ae8c-9b90133cc09d"
+  },
+  {
+    name: "Melena Marketing",
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136970995_logo_color_sin_fondo_400x400.png?alt=media&token=8cbcd618-a254-4a48-b1fb-b43e3327f09e"
+  },
+  {
+    name: "CAB Estepona",
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CAB_estepona_logo_400x400.png?alt=media&token=013bccb9-1ad3-49b1-9715-664a190effa3"
+  },
+  {
+    name: "Club Baloncesto Moncofa",
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CBM_400x400.png?alt=media&token=6032435c-25a6-40fc-9f8f-9c230cb40ed8"
+  }
+];
+
 export const CampusSponsors: React.FC = () => {
   return (
     <section className="py-20 px-6 bg-white">
@@ -9,30 +28,29 @@ export const CampusSponsors: React.FC = () => {
           Hacen esto posible
         </span>
 
-        {/* Main Partners - Larger */}
-        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 mb-16 opacity-90">
-          {/* Placeholder for Main Sponsors - Using Text for now as per instruction to create structure */}
-          <div className="text-3xl font-black text-gray-300 uppercase tracking-tighter hover:text-brand-dark transition-colors cursor-default">
-            CAB Estepona
-          </div>
-           <div className="text-3xl font-black text-gray-300 uppercase tracking-tighter hover:text-brand-dark transition-colors cursor-default">
-            Ayto. Estepona
-          </div>
-           <div className="text-3xl font-black text-gray-300 uppercase tracking-tighter hover:text-brand-dark transition-colors cursor-default">
-            Club Moncofa
-          </div>
-        </div>
+        {/* Single line of logos */}
+        <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+          {SPONSORS.map((sponsor, index) => {
+            // The first two logos are horizontal text, so we give them more width
+            // to make them appear visually balanced with the square crests.
+            const isHorizontal = index < 2;
+            const sizeClass = isHorizontal 
+              ? "w-48 h-20 md:w-64 md:h-28" // Wider container for text logos
+              : "w-20 h-20 md:w-28 md:h-28"; // Square container for crests
 
-        {/* Separator */}
-        <div className="h-px w-24 bg-gray-200 mx-auto mb-12"></div>
-
-        {/* Collaborators - Smaller */}
-        <h3 className="text-sm font-bold uppercase text-gray-400 mb-8 tracking-widest">Colaboradores</h3>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          <div className="text-xl font-bold text-gray-400 hover:text-brand-green">Sponsor 1</div>
-          <div className="text-xl font-bold text-gray-400 hover:text-brand-green">Sponsor 2</div>
-          <div className="text-xl font-bold text-gray-400 hover:text-brand-green">Sponsor 3</div>
-          <div className="text-xl font-bold text-gray-400 hover:text-brand-green">Sponsor 4</div>
+            return (
+              <div 
+                key={index} 
+                className={`${sizeClass} flex items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110`}
+              >
+                <img 
+                  src={sponsor.logo} 
+                  alt={sponsor.name} 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            );
+          })}
         </div>
 
       </div>
