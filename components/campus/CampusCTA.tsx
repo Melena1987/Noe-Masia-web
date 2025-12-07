@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, Tag } from 'lucide-react';
 
 interface CampusCTAProps {
   onContactClick: () => void;
@@ -8,6 +8,8 @@ interface CampusCTAProps {
 
 export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   const [formData, setFormData] = useState({
+    location: '',
+    isClubMember: 'No',
     playerName: '',
     tutorName: '',
     tutorDni: '',
@@ -31,66 +33,127 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `INSCRIPCIÓN CAMPUS: ${formData.playerName}`;
+    const subject = `INSCRIPCIÓN CAMPUS: ${formData.playerName} - ${formData.location}`;
     const body = `
 DATOS DE INSCRIPCIÓN:
 ---------------------
-1. Jugador/a: ${formData.playerName}
-2. Tutor/a: ${formData.tutorName}
-3. DNI Tutor/a: ${formData.tutorDni}
-4. Email: ${formData.email}
-5. Dirección: ${formData.address}
-6. Edad: ${formData.age}
-7. Fecha Nacimiento: ${formData.birthDate}
-8. Categoría: ${formData.category}
-9. Club: ${formData.club}
-10. Años jugando: ${formData.yearsPlaying}
-11. Alergias: ${formData.allergies}
-12. Intolerancias: ${formData.intolerances}
-13. Info extra: ${formData.otherInfo}
-14. Talla Camiseta: ${formData.shirtSize}
-15. Método Pago Preferido: ${formData.paymentMethod}
+1. Sede: ${formData.location}
+2. Jugador/a Club (Dto.): ${formData.isClubMember}
+3. Jugador/a: ${formData.playerName}
+4. Tutor/a: ${formData.tutorName}
+5. DNI Tutor/a: ${formData.tutorDni}
+6. Email: ${formData.email}
+7. Dirección: ${formData.address}
+8. Edad: ${formData.age}
+9. Fecha Nacimiento: ${formData.birthDate}
+10. Categoría: ${formData.category}
+11. Club Actual: ${formData.club}
+12. Años jugando: ${formData.yearsPlaying}
+13. Alergias: ${formData.allergies}
+14. Intolerancias: ${formData.intolerances}
+15. Info extra: ${formData.otherInfo}
+16. Talla Camiseta: ${formData.shirtSize}
+17. Método Pago Preferido: ${formData.paymentMethod}
     `;
     window.location.href = `mailto:info@noemasia.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
     <section id="contact" className="py-24 bg-white text-brand-dark px-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-black uppercase mb-6 text-brand-dark">Proceso de Inscripción</h3>
-          <div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-8 md:gap-12 text-left md:text-center">
-            <div className="flex-1 relative">
-              <span className="text-6xl font-black text-brand-light absolute -top-4 -left-4 md:left-1/2 md:-translate-x-1/2 z-0">1</span>
-              <div className="relative z-10">
-                <p className="font-bold uppercase text-brand-green">Rellena</p>
-                <p className="text-sm text-gray-600">Completa el formulario con todos los datos del jugador/a.</p>
-              </div>
+          <h3 className="text-4xl font-black uppercase mb-6 text-brand-dark">Únete al Campus</h3>
+          <p className="max-w-2xl mx-auto text-gray-500 font-light">
+            Elige tu sede y reserva tu plaza. Las plazas son limitadas para asegurar la calidad de los entrenamientos.
+          </p>
+        </div>
+
+        {/* Pricing Cards */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
+          {/* Estepona Pricing */}
+          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green">
+            <div className="absolute top-0 right-0 bg-brand-green text-xs font-bold px-3 py-1 uppercase text-white">Málaga</div>
+            <h4 className="text-2xl font-black uppercase mb-2">Estepona</h4>
+            <p className="text-sm text-gray-400 mb-6">Pabellón JA Pineda (13-18 Julio)</p>
+            
+            <div className="mb-6">
+              <span className="text-5xl font-black">250€</span>
+              <span className="text-sm text-gray-400 block mt-1">Precio General</span>
             </div>
-            <ArrowRight className="hidden md:block text-gray-300" />
-            <div className="flex-1 relative">
-              <span className="text-6xl font-black text-brand-light absolute -top-4 -left-4 md:left-1/2 md:-translate-x-1/2 z-0">2</span>
-              <div className="relative z-10">
-                <p className="font-bold uppercase text-brand-green">Confirma</p>
-                <p className="text-sm text-gray-600">Recibirás un email confirmando la plaza y el enlace de pago.</p>
+
+            <div className="bg-white/10 p-4 rounded-sm mb-6 border border-white/10">
+              <div className="flex items-center gap-2 mb-1">
+                <Tag size={16} className="text-brand-lime"/>
+                <span className="font-bold text-brand-lime text-sm uppercase">Jugadores CAB Estepona</span>
               </div>
+              <p className="text-2xl font-bold">190€ <span className="text-xs font-normal text-gray-400 line-through">250€</span></p>
+              <p className="text-xs text-gray-400 mt-1">*30% Descuento (Previa verificación)</p>
             </div>
-            <ArrowRight className="hidden md:block text-gray-300" />
-            <div className="flex-1 relative">
-              <span className="text-6xl font-black text-brand-light absolute -top-4 -left-4 md:left-1/2 md:-translate-x-1/2 z-0">3</span>
-              <div className="relative z-10">
-                <p className="font-bold uppercase text-brand-green">Descuentos</p>
-                <p className="text-sm text-gray-600">30% Descuento directo para jugadores/as del CAB Estepona.</p>
+
+            <ul className="text-sm text-gray-300 space-y-2 mb-6">
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> 2 Camisetas de entrenamiento</li>
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Agua, Fruta y Snacks diarios</li>
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Charlas formativas</li>
+            </ul>
+          </div>
+
+          {/* Moncofa Pricing */}
+          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime">
+            <div className="absolute top-0 right-0 bg-brand-lime text-xs font-bold px-3 py-1 uppercase text-brand-dark">Castellón</div>
+            <h4 className="text-2xl font-black uppercase mb-2">Moncofa</h4>
+            <p className="text-sm text-gray-400 mb-6">Instalaciones Municipales (3-8 Agosto)</p>
+            
+            <div className="mb-6">
+              <span className="text-5xl font-black">250€</span>
+              <span className="text-sm text-gray-400 block mt-1">Precio General</span>
+            </div>
+
+            <div className="bg-white/10 p-4 rounded-sm mb-6 border border-white/10">
+              <div className="flex items-center gap-2 mb-1">
+                <Tag size={16} className="text-brand-lime"/>
+                <span className="font-bold text-brand-lime text-sm uppercase">Jugadores Moncofa</span>
               </div>
+              <p className="text-2xl font-bold">150€ <span className="text-xs font-normal text-gray-400 line-through">250€</span></p>
+              <p className="text-xs text-gray-400 mt-1">*40% Descuento (Previa verificación)</p>
             </div>
+
+            <ul className="text-sm text-gray-300 space-y-2 mb-6">
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> 2 Camisetas de entrenamiento</li>
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Agua, Fruta y Snacks diarios</li>
+              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Charlas formativas</li>
+            </ul>
           </div>
         </div>
 
-        <div className="bg-gray-50 p-8 md:p-12 rounded-sm border border-gray-200 shadow-2xl">
+        <div className="bg-gray-50 p-8 md:p-12 rounded-sm border border-gray-200 shadow-2xl max-w-4xl mx-auto">
           <h4 className="text-2xl font-bold uppercase mb-8 text-center border-b border-gray-200 pb-4">Formulario de Inscripción</h4>
           
           <form onSubmit={handleSubmit} className="space-y-6">
+            
+            {/* Campus Selection - HIGHLIGHTED */}
+            <div className="bg-brand-green/10 p-6 rounded-sm border border-brand-green/30">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                   <label className="text-xs font-bold uppercase text-brand-dark">Selecciona Sede</label>
+                   <select required name="location" value={formData.location} onChange={handleChange} className="w-full border-2 border-brand-green p-3 rounded-sm focus:outline-none bg-white text-brand-dark font-bold">
+                      <option value="">-- Elige una opción --</option>
+                      <option value="Estepona">ESTEPONA (13-18 Julio)</option>
+                      <option value="Moncofa">MONCOFA (3-8 Agosto)</option>
+                   </select>
+                </div>
+                <div className="space-y-1">
+                   <label className="text-xs font-bold uppercase text-brand-dark">¿Perteneces al club de la sede?</label>
+                   <select required name="isClubMember" value={formData.isClubMember} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
+                      <option value="No">No</option>
+                      <option value="Si - CAB Estepona">Sí, soy del CAB Estepona</option>
+                      <option value="Si - Moncofa">Sí, soy del Club Moncofa</option>
+                   </select>
+                   <p className="text-[10px] text-gray-500 pt-1">*Se verificará con el club correspondiente.</p>
+                </div>
+              </div>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6">
               {/* Personal Info */}
               <div className="space-y-1">
@@ -170,10 +233,10 @@ DATOS DE INSCRIPCIÓN:
             </div>
 
             <Button variant="lime" type="submit" className="w-full py-4 text-base font-bold shadow-lg mt-6">
-              Enviar Solicitud de Inscripción
+              Solicitar Plaza
             </Button>
             <p className="text-center text-xs text-gray-400 mt-4">
-              Al enviar este formulario se abrirá tu gestor de correo predeterminado con los datos rellenos para finalizar la solicitud.
+              Al enviar este formulario se abrirá tu gestor de correo para finalizar la inscripción. Recibirás respuesta en 24/48h.
             </p>
           </form>
         </div>

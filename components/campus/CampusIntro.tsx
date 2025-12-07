@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Calendar } from 'lucide-react';
+import { MapPin, Calendar, Utensils, XCircle } from 'lucide-react';
 
 export const CampusIntro: React.FC = () => {
   return (
@@ -24,18 +24,22 @@ export const CampusIntro: React.FC = () => {
                <div className="space-y-4 border-t border-white/10 pt-6">
                  <div className="flex items-center gap-3 text-gray-300">
                    <Calendar size={18} className="text-brand-lime"/>
-                   <span>13 - 18 Julio</span>
+                   <span className="font-bold text-white">13 - 18 Julio</span>
                  </div>
-                 <p className="text-sm text-gray-400 font-light">
+                 <div className="flex items-start gap-3 text-gray-300">
+                   <Utensils size={18} className="text-brand-lime mt-1 shrink-0"/>
+                   <span className="text-sm">Servicio de Bar/Cafetería disponible en la instalación.</span>
+                 </div>
+                 <p className="text-sm text-gray-400 font-light mt-2">
                    Pabellón JA Pineda. Unas instalaciones de primer nivel para el desarrollo técnico y táctico.
                  </p>
                </div>
             </div>
 
-            {/* Moncofa - Placeholder/Coming Soon */}
-            <div className="bg-white/5 border border-white/10 p-8 rounded-sm relative overflow-hidden group opacity-70 hover:opacity-100 transition-opacity">
-               <div className="absolute top-4 right-4 bg-brand-lime text-brand-dark text-xs font-bold px-3 py-1 uppercase tracking-wider transform rotate-12">
-                 Próximamente
+            {/* Moncofa */}
+            <div className="bg-white/5 border border-brand-lime/30 p-8 rounded-sm relative overflow-hidden group hover:bg-white/10 transition-colors">
+               <div className="absolute top-0 right-0 bg-brand-lime text-brand-dark text-xs font-bold px-3 py-1 uppercase z-10">
+                 Inscripciones Abiertas
                </div>
                <div className="flex justify-between items-start mb-6">
                  <div>
@@ -47,11 +51,15 @@ export const CampusIntro: React.FC = () => {
                
                <div className="space-y-4 border-t border-white/10 pt-6">
                  <div className="flex items-center gap-3 text-gray-300">
-                   <Calendar size={18} className="text-white"/>
-                   <span>1ª Semana Agosto (A confirmar)</span>
+                   <Calendar size={18} className="text-brand-lime"/>
+                   <span className="font-bold text-white">3 - 8 Agosto</span>
                  </div>
-                 <p className="text-sm text-gray-400 font-light">
-                   Trabajando para llevar la experiencia Noe Masiá a la costa de Castellón.
+                 <div className="flex items-start gap-3 text-gray-300">
+                   <XCircle size={18} className="text-gray-500 mt-1 shrink-0"/>
+                   <span className="text-sm">Sin servicio de Bar en la instalación.</span>
+                 </div>
+                 <p className="text-sm text-gray-400 font-light mt-2">
+                   Llevamos la experiencia Noe Masiá a la costa de Castellón. Instalaciones municipales de Moncofa.
                  </p>
                </div>
             </div>
