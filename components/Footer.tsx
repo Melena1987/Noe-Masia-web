@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
             <MessageCircle size={24} />
           </a>
           <a 
-            href="mailto:info@noemasia.com" 
+            href="mailto:campus@noemasia.com" 
             className={`${iconBaseClass} ${isHighlighted ? iconHighlightClass : iconNormalClass}`}
             aria-label="Email"
           >
