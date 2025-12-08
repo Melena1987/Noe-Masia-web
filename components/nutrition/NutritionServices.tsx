@@ -21,8 +21,9 @@ export const NutritionServices: React.FC = () => {
                 Sin dietas ni restricciones establecidas, solamente entendiendo qué necesita la persona y cuál es la base del problema que podemos solucionar con la herramienta que sea necesaria en cada caso.
               </p>
               
-              <div className="bg-gray-50 p-8 border-l-4 border-brand-green mt-8 rounded-r-sm shadow-sm">
-                <p className="text-xl md:text-2xl font-serif italic text-brand-dark/80">
+              {/* Quote - Sans-serif, Clean, Modern (Basicón) */}
+              <div className="bg-gray-100/80 p-8 border-l-8 border-brand-green mt-12 rounded-r-sm">
+                <p className="text-2xl md:text-3xl font-bold text-brand-dark not-italic tracking-tight leading-tight">
                   "Hablemos más de guías y soporte, antes que de dietas."
                 </p>
               </div>
