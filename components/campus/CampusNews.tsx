@@ -16,7 +16,7 @@ const NEWS_ITEMS: NewsItem[] = [
   {
     id: 1,
     title: "Presentación Oficial del Campus Noe Masiá",
-    date: "Marzo 2025",
+    date: "Noviembre 2025",
     category: "Lanzamiento",
     image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764609571914_1764315848894_WhatsApp_Image_2025-10-04_at_12.59.55.jpeg?alt=media&token=f4a883b9-f971-4223-82bc-91d6108b0c52",
     excerpt: "Lanzamos la primera edición de un campus diferente, centrado en el rendimiento integral del jugador.",
@@ -34,7 +34,7 @@ const NEWS_ITEMS: NewsItem[] = [
   {
     id: 2,
     title: "Sede Moncofa: Baloncesto junto al mar",
-    date: "Abril 2025",
+    date: "Diciembre 2025",
     category: "Sedes",
     image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764315848894_ESTEPONA_-38.jpg?alt=media&token=b7bc2b58-9295-45ef-b632-cb62b8ba6fac", 
     excerpt: "Confirmamos las fechas para nuestra sede en Castellón. Del 3 al 8 de Agosto, te esperamos en Moncofa.",
@@ -52,7 +52,7 @@ const NEWS_ITEMS: NewsItem[] = [
     title: "Entrevista: La importancia de la nutrición",
     date: "Mayo 2025",
     category: "Prensa",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764323005306_Unknown-5.jpg?alt=media&token=73ca4403-901b-40a0-a192-9196d81633b5",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765179478682_pasta_seca.png?alt=media&token=10938296-7a39-4665-be01-e3b88162b21e",
     excerpt: "Hablamos sobre cómo los hábitos alimenticios influyen en el desarrollo de los jóvenes jugadores.",
     content: (
       <>

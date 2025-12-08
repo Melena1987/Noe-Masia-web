@@ -3,19 +3,23 @@ import React from 'react';
 const SPONSORS = [
   {
     name: "Jugador Doce",
-    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_jugador_doce__400x400.png?alt=media&token=40a0f353-08a1-47ee-ae8c-9b90133cc09d"
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_jugador_doce__400x400.png?alt=media&token=40a0f353-08a1-47ee-ae8c-9b90133cc09d",
+    url: "https://jugadordoce.es/"
   },
   {
     name: "Melena Marketing",
-    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136970995_logo_color_sin_fondo_400x400.png?alt=media&token=8cbcd618-a254-4a48-b1fb-b43e3327f09e"
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136970995_logo_color_sin_fondo_400x400.png?alt=media&token=8cbcd618-a254-4a48-b1fb-b43e3327f09e",
+    url: "https://www.melenamarketing.com/"
   },
   {
     name: "CAB Estepona",
-    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CAB_estepona_logo_400x400.png?alt=media&token=013bccb9-1ad3-49b1-9715-664a190effa3"
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CAB_estepona_logo_400x400.png?alt=media&token=013bccb9-1ad3-49b1-9715-664a190effa3",
+    url: "https://cabestepona.es/"
   },
   {
     name: "Club Baloncesto Moncofa",
-    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CBM_400x400.png?alt=media&token=6032435c-25a6-40fc-9f8f-9c230cb40ed8"
+    logo: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765136872912_CBM_400x400.png?alt=media&token=6032435c-25a6-40fc-9f8f-9c230cb40ed8",
+    url: "https://www.instagram.com/c.b.moncofa/?hl=es"
   }
 ];
 
@@ -43,8 +47,11 @@ export const CampusSponsors: React.FC = () => {
             }
 
             return (
-              <div 
+              <a 
                 key={index} 
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`${sizeClass} flex items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110`}
               >
                 <img 
@@ -52,7 +59,7 @@ export const CampusSponsors: React.FC = () => {
                   alt={sponsor.name} 
                   className="w-full h-full object-contain"
                 />
-              </div>
+              </a>
             );
           })}
         </div>

@@ -14,7 +14,7 @@ export const NutritionCTA: React.FC = () => {
     e.preventDefault();
     const subject = `Consulta Web: ${formState.plan.toUpperCase()}`;
     const body = `Nombre: ${formState.name}%0D%0AEmail: ${formState.email}%0D%0ATeléfono: ${formState.phone}%0D%0APlan de interés: ${formState.plan}%0D%0A%0D%0AMensaje:%0D%0A${formState.message}`;
-    window.location.href = `mailto:info@noemasia.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:nutricion@noemasia.com?subject=${subject}&body=${body}`;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -46,7 +46,7 @@ export const NutritionCTA: React.FC = () => {
           
           <div className="hidden md:block text-sm text-gray-500 font-light mt-12 border-t border-gray-200 pt-8">
             <p className="mb-2">También puedes escribirme directamente a:</p>
-            <a href="mailto:info@noemasia.com" className="text-brand-green hover:underline text-lg font-bold">info@noemasia.com</a>
+            <a href="mailto:nutricion@noemasia.com" className="text-brand-green hover:underline text-lg font-bold">nutricion@noemasia.com</a>
           </div>
         </div>
 
