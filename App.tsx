@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { NutritionPage } from './pages/NutritionPage';
 import { CampusPage } from './pages/CampusPage';
+import { AdminPage } from './pages/AdminPage';
 import { useEffect } from 'react';
 
 function App() {
@@ -15,17 +16,20 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const isAdminRoute = pathname === '/admin';
+
   return (
     <div className="min-h-screen font-sans selection:bg-brand-green selection:text-white flex flex-col">
-      <Navbar />
+      {!isAdminRoute && <Navbar />}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/nutricion" element={<NutritionPage />} />
           <Route path="/campus" element={<CampusPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </div>
   );
 }

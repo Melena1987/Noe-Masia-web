@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
+import { db } from '../../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export const NutritionCTA: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -10,10 +13,27 @@ export const NutritionCTA: React.FC = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // 1. Save to Firebase
+    try {
+      await addDoc(collection(db, "nutrition_requests"), {
+        ...formState,
+        createdAt: serverTimestamp(),
+        status: 'new'
+      });
+    } catch (error) {
+      console.error("Error saving to database:", error);
+      // Continue to mailto even if DB fails
+    }
+
+    // 2. Open Mail Client
     const subject = `Consulta Web: ${formState.plan.toUpperCase()}`;
     const body = `Nombre: ${formState.name}%0D%0AEmail: ${formState.email}%0D%0ATeléfono: ${formState.phone}%0D%0APlan de interés: ${formState.plan}%0D%0A%0D%0AMensaje:%0D%0A${formState.message}`;
+    
+    setIsSubmitting(false);
     window.location.href = `mailto:nutricion@noemasia.com?subject=${subject}&body=${body}`;
   };
 
@@ -132,8 +152,8 @@ export const NutritionCTA: React.FC = () => {
               ></textarea>
             </div>
 
-            <Button type="submit" variant="primary" className="w-full py-4 text-sm font-bold tracking-widest mt-4">
-              Enviar Solicitud
+            <Button disabled={isSubmitting} type="submit" variant="primary" className="w-full py-4 text-sm font-bold tracking-widest mt-4 disabled:opacity-50">
+              {isSubmitting ? 'Procesando...' : 'Enviar Solicitud'}
             </Button>
             
             <p className="text-xs text-gray-400 text-center mt-4 leading-relaxed opacity-80">

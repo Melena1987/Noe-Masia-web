@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { CheckCircle, ArrowRight, Tag } from 'lucide-react';
+import { CheckCircle, Tag } from 'lucide-react';
+import { db } from '../../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface CampusCTAProps {
   onContactClick: () => void;
 }
 
 export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     location: '',
     isClubMember: 'No',
@@ -31,8 +34,23 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
+    // 1. Save to Firebase
+    try {
+      await addDoc(collection(db, "campus_registrations"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+        status: 'pending'
+      });
+    } catch (error) {
+      console.error("Error saving to database:", error);
+      // Continue to mailto even if DB fails
+    }
+
+    // 2. Open Mail Client
     const subject = `INSCRIPCIÓN CAMPUS: ${formData.playerName} - ${formData.location}`;
     const body = `
 DATOS DE INSCRIPCIÓN:
@@ -55,6 +73,8 @@ DATOS DE INSCRIPCIÓN:
 16. Talla Camiseta: ${formData.shirtSize}
 17. Método Pago Preferido: ${formData.paymentMethod}
     `;
+    
+    setIsSubmitting(false);
     window.location.href = `mailto:campus@noemasia.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
@@ -232,8 +252,8 @@ DATOS DE INSCRIPCIÓN:
               </div>
             </div>
 
-            <Button variant="lime" type="submit" className="w-full py-4 text-base font-bold shadow-lg mt-6">
-              Solicitar Plaza
+            <Button disabled={isSubmitting} variant="lime" type="submit" className="w-full py-4 text-base font-bold shadow-lg mt-6 disabled:opacity-50">
+              {isSubmitting ? 'Procesando...' : 'Solicitar Plaza'}
             </Button>
             <p className="text-center text-xs text-gray-400 mt-4">
               Al enviar este formulario se abrirá tu gestor de correo para finalizar la inscripción. Recibirás respuesta en 24/48h.
