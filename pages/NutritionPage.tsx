@@ -9,24 +9,34 @@ import { Testimonials } from '../components/Testimonials';
 // Data for testimonials/clients
 const testimonials = [
   {
-    name: "Enzo",
-    role: "Málaga CF - Infantil Div. Honor",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765178293780_Enzo_._M_laga_CF-Infantil_divisi_n_de_honor__400x400.jpg?alt=media&token=a5b9e953-c2f4-4b70-b3f4-2a4e31a08546"
-  },
-  {
-    name: "Ainhoa Gervasini",
-    role: "Liga Femenina Endesa",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765178293780_WAinhoa_Gervasini_Lacorzana_Liga_Fem_Endesa_400x400.jpeg?alt=media&token=550c3c43-56a7-46ba-8eea-d22f38db7ac6"
-  },
-  {
-    name: "Pablo Ávalos",
-    role: "Jaén Paraíso Interior FS - Tercera FEB",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765178293780_Pablo__valos_._Ja_n_Para_so_interior_FS_Baloncesto_-_Tercera_FEB__400x400.jpg?alt=media&token=8f0b121b-b944-47c4-baae-65deb6ad0f59"
+    name: "Enzo- Jugador de fútbol",
+    role: "Infantil división de honor Malaga CF",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765210679376_1.png?alt=media&token=1c38069e-824b-44cd-ae0d-c093ee0e72f9"
   },
   {
     name: "Leo Anaya",
     role: "CAB Estepona - Junior",
-    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765178293780_Leo_Anaya_._CAB_Estepona_-Junior__400x400.jpeg?alt=media&token=94e55c93-74d0-4272-851b-ff29522d5c92"
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765210679376_2.png?alt=media&token=fa88c9b8-293d-4e72-975d-04a79d21f59a"
+  },
+  {
+    name: "Sur Lozano- Jugadora de baloncesto",
+    role: "Cleveland State University. NCAA D1",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765210679376_3.png?alt=media&token=957ed20e-aa12-480a-a946-70170948026c"
+  },
+  {
+    name: "Ainhoa Gervasini Lazorzana- Jugadora de baloncesto",
+    role: "Cadi La Seu- Liga Femenina Endesa",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765210679376_4.png?alt=media&token=9df1bc96-3c35-4af9-9cc6-8d10521c1721"
+  },
+  {
+    name: "Alejandro Carrasco- Jugador de fútbol",
+    role: "Real club Recreativo de Huelva - Segunda REFF",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765210679376_5.png?alt=media&token=e2b3c811-fd64-4626-b70f-d17c697bd855"
+  },
+  {
+    name: "Pablo Ávalos",
+    role: "Jaén Paraíso Interior FS - Tercera FEB",
+    image: "https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765211045088_6.png?alt=media&token=1fe8a96a-4067-40db-8e46-06daab41782a"
   }
 ];
 

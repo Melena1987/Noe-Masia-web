@@ -1,8 +1,9 @@
+
 import React from 'react';
 
 interface Testimonial {
   name: string;
-  role?: string; // e.g., "Liga Femenina Endesa", "Madre de alumno"
+  role?: string; 
   image?: string;
   text?: string;
 }
@@ -23,49 +24,47 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ title, testimonials,
           {title}
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
             <div 
               key={idx} 
-              className="group flex flex-col items-center text-center h-full"
+              className="group relative w-full aspect-[3/4] flex flex-col justify-end overflow-hidden"
             >
-              {/* Image Container with Hover Effects */}
-              <div className="w-full aspect-square overflow-hidden rounded-sm mb-6 relative shadow-lg bg-gray-200">
-                {t.image ? (
-                  <>
-                    <div className="absolute inset-0 bg-brand-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 mix-blend-multiply pointer-events-none"></div>
-                    <img 
-                      src={t.image} 
-                      alt={t.name} 
-                      className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transform group-hover:scale-110 transition-all duration-700 ease-out" 
-                    />
-                  </>
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl font-bold opacity-30 bg-gray-300">
-                    {t.name.charAt(0)}
-                  </div>
-                )}
-              </div>
-
-              {/* Text Content */}
-              <div className="flex flex-col items-center transition-transform duration-300 group-hover:-translate-y-2">
-                <h4 className={`font-black text-xl uppercase leading-none mb-2 ${isDark ? 'text-white' : 'text-brand-dark'}`}>
+              {/* Text Content - Absolute Top with Zoom Effect */}
+              <div className="absolute top-0 left-0 right-0 z-10 flex flex-col items-center text-center p-4 transition-transform duration-300 group-hover:scale-110 origin-top">
+                <h4 className={`font-bold text-lg uppercase leading-tight mb-1 ${isDark ? 'text-white' : 'text-gray-700'}`}>
                   {t.name}
                 </h4>
                 {t.role && (
-                  <p className={`text-xs uppercase tracking-widest font-bold ${isDark ? 'text-brand-lime' : 'text-brand-green'}`}>
+                  <p className={`text-base italic font-medium leading-tight ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                     {t.role}
                   </p>
                 )}
                 
                 {t.text && (
-                  <div className="mt-4 pt-4 border-t border-gray-200/50 w-full max-w-[200px]">
+                  <div className="mt-2 pt-2 border-t border-gray-200/50 w-auto">
                     <p className={`text-sm font-light italic leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                       "{t.text}"
                     </p>
                   </div>
                 )}
               </div>
+
+              {/* Image Container - Full size, Object Contain, Aligned Bottom */}
+              <div className="w-full h-full">
+                {t.image ? (
+                  <img 
+                    src={t.image} 
+                    alt={t.name} 
+                    className="w-full h-full object-contain object-bottom" 
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-3xl font-bold opacity-10 bg-gray-100">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
+              </div>
+
             </div>
           ))}
         </div>
