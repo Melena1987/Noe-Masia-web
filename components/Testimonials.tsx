@@ -24,7 +24,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ title, testimonials,
           {title}
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-x-8 gap-y-16">
           {testimonials.map((t, idx) => (
             <div 
               key={idx} 
@@ -32,18 +32,18 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ title, testimonials,
             >
               {/* Text Content - Absolute Top with Zoom Effect */}
               <div className="absolute top-0 left-0 right-0 z-10 flex flex-col items-center text-center p-4 transition-transform duration-300 group-hover:scale-110 origin-top">
-                <h4 className={`font-bold text-lg uppercase leading-tight mb-1 ${isDark ? 'text-white' : 'text-gray-700'}`}>
+                <h4 className={`font-bold text-base uppercase leading-tight mb-1 ${isDark ? 'text-white' : 'text-gray-700'}`}>
                   {t.name}
                 </h4>
                 {t.role && (
-                  <p className={`text-base italic font-medium leading-tight ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                  <p className={`text-sm italic font-medium leading-tight ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                     {t.role}
                   </p>
                 )}
                 
                 {t.text && (
                   <div className="mt-2 pt-2 border-t border-gray-200/50 w-auto">
-                    <p className={`text-sm font-light italic leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <p className={`text-xs font-light italic leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                       "{t.text}"
                     </p>
                   </div>
