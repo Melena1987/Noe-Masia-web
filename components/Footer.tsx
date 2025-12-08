@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
           &copy; {new Date().getFullYear()} Noe Masiá. Todos los derechos reservados.
         </p>
         
-        <div className="flex items-center justify-center gap-1.5 text-gray-500 text-xs mt-4 relative">
+        <div className="flex items-center justify-center gap-2 text-gray-500 text-xs mt-4">
           <span>Diseñado con</span>
           <Heart size={12} className="text-brand-green fill-current" />
           <span>por</span>
@@ -72,8 +72,8 @@ export const Footer: React.FC = () => {
           </a>
           
           {/* Discreet Admin Link */}
-          <Link to="/admin" className="absolute -right-8 opacity-20 hover:opacity-100 transition-opacity text-gray-500">
-            <Lock size={12} />
+          <Link to="/admin" className="ml-2 opacity-30 hover:opacity-100 transition-opacity text-gray-500" title="Admin Panel">
+            <Lock size={10} />
           </Link>
         </div>
       </div>

@@ -43,11 +43,13 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
       await addDoc(collection(db, "campus_registrations"), {
         ...formData,
         createdAt: serverTimestamp(),
-        status: 'pending'
+        status: 'pending', // pending, contactado, pagado
+        viewed: false
       });
-    } catch (error) {
+      console.log("Registro de campus guardado correctamente en Firebase.");
+    } catch (error: any) {
       console.error("Error saving to database:", error);
-      // Continue to mailto even if DB fails
+      // alert("Nota: No se pudo guardar el registro en la base de datos (Error: " + error.message + "), pero se procederá a abrir el correo.");
     }
 
     // 2. Open Mail Client

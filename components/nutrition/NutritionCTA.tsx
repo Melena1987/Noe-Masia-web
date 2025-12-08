@@ -22,11 +22,14 @@ export const NutritionCTA: React.FC = () => {
       await addDoc(collection(db, "nutrition_requests"), {
         ...formState,
         createdAt: serverTimestamp(),
-        status: 'new'
+        status: 'new', // Status for admin panel
+        viewed: false
       });
-    } catch (error) {
+      console.log("Solicitud de nutrición guardada en base de datos.");
+    } catch (error: any) {
       console.error("Error saving to database:", error);
-      // Continue to mailto even if DB fails
+      // Alert only in dev or if critical, otherwise fail silently so user can still email
+      // alert("Nota: No se pudo guardar el registro en la base de datos, pero se procederá al envío del email. Error: " + error.message);
     }
 
     // 2. Open Mail Client
