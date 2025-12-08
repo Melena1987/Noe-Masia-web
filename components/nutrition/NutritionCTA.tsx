@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { Button } from '../Button';
 import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { CheckCircle, AlertCircle } from 'lucide-react';
 
 export const NutritionCTA: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -16,8 +20,9 @@ export const NutritionCTA: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
 
-    // 1. Save to Firebase
     try {
       await addDoc(collection(db, "nutrition_requests"), {
         ...formState,
@@ -25,19 +30,23 @@ export const NutritionCTA: React.FC = () => {
         status: 'new', // Status for admin panel
         viewed: false
       });
+      
+      setSubmitStatus('success');
+      setFormState({
+        name: '',
+        email: '',
+        phone: '',
+        plan: 'Plan Atleta',
+        message: ''
+      });
       console.log("Solicitud de nutrición guardada en base de datos.");
     } catch (error: any) {
       console.error("Error saving to database:", error);
-      // Alert only in dev or if critical, otherwise fail silently so user can still email
-      // alert("Nota: No se pudo guardar el registro en la base de datos, pero se procederá al envío del email. Error: " + error.message);
+      setSubmitStatus('error');
+      setErrorMessage("Hubo un error al guardar tu solicitud. Por favor, revisa tu conexión o inténtalo más tarde.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // 2. Open Mail Client
-    const subject = `Consulta Web: ${formState.plan.toUpperCase()}`;
-    const body = `Nombre: ${formState.name}%0D%0AEmail: ${formState.email}%0D%0ATeléfono: ${formState.phone}%0D%0APlan de interés: ${formState.plan}%0D%0A%0D%0AMensaje:%0D%0A${formState.message}`;
-    
-    setIsSubmitting(false);
-    window.location.href = `mailto:nutricion@noemasia.com?subject=${subject}&body=${body}`;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -46,6 +55,25 @@ export const NutritionCTA: React.FC = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  if (submitStatus === 'success') {
+    return (
+      <section id="nutrition-contact" className="py-24 bg-white text-brand-dark px-4 md:px-6 relative overflow-hidden">
+         <div className="max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm border border-brand-green/20 shadow-xl">
+            <div className="flex justify-center mb-6">
+              <CheckCircle size={64} className="text-brand-green" />
+            </div>
+            <h2 className="text-3xl font-black uppercase mb-4 text-brand-dark">¡Solicitud Recibida!</h2>
+            <p className="text-gray-600 text-lg font-light mb-8">
+              Gracias por tu interés. He recibido tus datos correctamente y me pondré en contacto contigo en las próximas 24/48h para valorar tu caso.
+            </p>
+            <Button variant="primary" onClick={() => setSubmitStatus('idle')}>
+              Enviar otra solicitud
+            </Button>
+         </div>
+      </section>
+    );
+  }
 
   return (
     <section id="nutrition-contact" className="py-24 bg-white text-brand-dark px-4 md:px-6 relative overflow-hidden">
@@ -155,8 +183,15 @@ export const NutritionCTA: React.FC = () => {
               ></textarea>
             </div>
 
+            {submitStatus === 'error' && (
+              <div className="bg-red-50 text-red-600 p-4 rounded-sm text-sm flex items-start gap-2">
+                 <AlertCircle size={16} className="mt-0.5 shrink-0"/>
+                 <p>{errorMessage}</p>
+              </div>
+            )}
+
             <Button disabled={isSubmitting} type="submit" variant="primary" className="w-full py-4 text-sm font-bold tracking-widest mt-4 disabled:opacity-50">
-              {isSubmitting ? 'Procesando...' : 'Enviar Solicitud'}
+              {isSubmitting ? 'Guardando...' : 'Enviar Solicitud'}
             </Button>
             
             <p className="text-xs text-gray-400 text-center mt-4 leading-relaxed opacity-80">

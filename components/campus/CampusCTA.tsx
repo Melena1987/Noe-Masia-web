@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { CheckCircle, Tag } from 'lucide-react';
+import { CheckCircle, Tag, AlertCircle } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -10,6 +10,9 @@ interface CampusCTAProps {
 
 export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [formData, setFormData] = useState({
     location: '',
     isClubMember: 'No',
@@ -37,8 +40,9 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
 
-    // 1. Save to Firebase
     try {
       await addDoc(collection(db, "campus_registrations"), {
         ...formData,
@@ -46,39 +50,58 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         status: 'pending', // pending, contactado, pagado
         viewed: false
       });
+      
       console.log("Registro de campus guardado correctamente en Firebase.");
+      setSubmitStatus('success');
+      
+      // Reset form
+      setFormData({
+        location: '',
+        isClubMember: 'No',
+        playerName: '',
+        tutorName: '',
+        tutorDni: '',
+        email: '',
+        address: '',
+        age: '',
+        birthDate: '',
+        category: '',
+        club: '',
+        yearsPlaying: '',
+        allergies: '',
+        intolerances: '',
+        otherInfo: '',
+        shirtSize: '',
+        paymentMethod: 'Transferencia'
+      });
+
     } catch (error: any) {
       console.error("Error saving to database:", error);
-      // alert("Nota: No se pudo guardar el registro en la base de datos (Error: " + error.message + "), pero se procederá a abrir el correo.");
+      setSubmitStatus('error');
+      setErrorMessage("No se pudo completar el registro. Por favor verifica tu conexión a internet.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // 2. Open Mail Client
-    const subject = `INSCRIPCIÓN CAMPUS: ${formData.playerName} - ${formData.location}`;
-    const body = `
-DATOS DE INSCRIPCIÓN:
----------------------
-1. Sede: ${formData.location}
-2. Jugador/a Club (Dto.): ${formData.isClubMember}
-3. Jugador/a: ${formData.playerName}
-4. Tutor/a: ${formData.tutorName}
-5. DNI Tutor/a: ${formData.tutorDni}
-6. Email: ${formData.email}
-7. Dirección: ${formData.address}
-8. Edad: ${formData.age}
-9. Fecha Nacimiento: ${formData.birthDate}
-10. Categoría: ${formData.category}
-11. Club Actual: ${formData.club}
-12. Años jugando: ${formData.yearsPlaying}
-13. Alergias: ${formData.allergies}
-14. Intolerancias: ${formData.intolerances}
-15. Info extra: ${formData.otherInfo}
-16. Talla Camiseta: ${formData.shirtSize}
-17. Método Pago Preferido: ${formData.paymentMethod}
-    `;
-    
-    setIsSubmitting(false);
-    window.location.href = `mailto:campus@noemasia.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
+
+  if (submitStatus === 'success') {
+    return (
+      <section id="contact" className="py-24 bg-white text-brand-dark px-6">
+        <div className="max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm border-t-4 border-brand-lime shadow-xl">
+           <div className="flex justify-center mb-6">
+             <CheckCircle size={64} className="text-brand-lime" />
+           </div>
+           <h2 className="text-3xl font-black uppercase mb-4 text-brand-dark">¡Pre-reserva Realizada!</h2>
+           <p className="text-gray-600 text-lg font-light mb-8">
+             Hemos registrado tus datos correctamente. En breve recibirás un correo electrónico con los pasos para formalizar el pago y asegurar tu plaza.
+           </p>
+           <Button variant="lime" onClick={() => setSubmitStatus('idle')}>
+             Realizar otra inscripción
+           </Button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="contact" className="py-24 bg-white text-brand-dark px-6">
@@ -253,12 +276,19 @@ DATOS DE INSCRIPCIÓN:
                 <textarea name="otherInfo" autoComplete="off" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark"></textarea>
               </div>
             </div>
+            
+            {submitStatus === 'error' && (
+              <div className="bg-red-50 text-red-600 p-4 rounded-sm text-sm flex items-start gap-2">
+                 <AlertCircle size={16} className="mt-0.5 shrink-0"/>
+                 <p>{errorMessage}</p>
+              </div>
+            )}
 
             <Button disabled={isSubmitting} variant="lime" type="submit" className="w-full py-4 text-base font-bold shadow-lg mt-6 disabled:opacity-50">
               {isSubmitting ? 'Procesando...' : 'Solicitar Plaza'}
             </Button>
             <p className="text-center text-xs text-gray-400 mt-4">
-              Al enviar este formulario se abrirá tu gestor de correo para finalizar la inscripción. Recibirás respuesta en 24/48h.
+              Tus datos serán guardados para gestionar la inscripción.
             </p>
           </form>
         </div>
