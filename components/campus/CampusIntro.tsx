@@ -13,6 +13,9 @@ export const CampusIntro: React.FC = () => {
             
             {/* Estepona */}
             <div className="bg-white/5 border border-brand-lime/30 p-8 rounded-sm relative overflow-hidden group hover:bg-white/10 transition-colors">
+               <div className="absolute top-0 right-0 bg-brand-lime text-brand-dark text-xs font-bold px-3 py-1 uppercase z-10">
+                 Inscripciones Abiertas
+               </div>
                <div className="flex justify-between items-start mb-6">
                  <div>
                    <h3 className="text-2xl font-black uppercase text-brand-lime">Estepona</h3>

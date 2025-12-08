@@ -37,7 +37,7 @@ export const NutritionPlans: React.FC<NutritionPlansProps> = ({ onContactClick }
               {/* Image Side - Absolute in Desktop to allow collapse */}
               <div className="md:absolute md:top-0 md:left-0 md:bottom-0 md:w-[41.66%] w-full h-64 md:h-auto relative z-0 overflow-hidden bg-gray-100 group">
                 <img 
-                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765179478682_frutas_negras.png?alt=media&token=0863687d-c873-4fd9-9214-5ad25d763894" 
+                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209526849_uvas_negras.jpg?alt=media&token=1eb8c2f5-be0f-4e51-a0eb-82009d4c0921" 
                   alt="Frutas frescas - Nutrición Real y Antioxidantes"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
@@ -138,7 +138,7 @@ export const NutritionPlans: React.FC<NutritionPlansProps> = ({ onContactClick }
               {/* Image Side - Absolute Right in Desktop */}
               <div className="md:absolute md:top-0 md:right-0 md:bottom-0 md:w-[41.66%] w-full h-64 md:h-auto relative z-0 overflow-hidden bg-gray-100 group order-1 md:order-none">
                 <img 
-                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765179478682_pasta_seca.png?alt=media&token=10938296-7a39-4665-be01-e3b88162b21e" 
+                  src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631710_noe_masia_nutrici_n.jpg?alt=media&token=d984aa7c-f080-4c3a-8129-78e004dabe15" 
                   alt="Pasta seca - Carbohidratos y Energía"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
@@ -187,6 +187,7 @@ export const NutritionPlans: React.FC<NutritionPlansProps> = ({ onContactClick }
                           <span className="px-3 py-1 bg-gray-100 rounded-full border border-gray-200">Resistencia Insulina</span>
                           <span className="px-3 py-1 bg-gray-100 rounded-full border border-gray-200">Inflamación</span>
                           <span className="px-3 py-1 bg-gray-100 rounded-full border border-gray-200">Alergias</span>
+                          <span className="px-3 py-1 bg-gray-100 rounded-full border border-gray-200">Otros</span>
                         </div>
                       </div>
 
@@ -206,6 +207,23 @@ export const NutritionPlans: React.FC<NutritionPlansProps> = ({ onContactClick }
                                 <span><strong>1 Videollamada de revisión</strong> y contacto vía correo electrónico.</span>
                             </li>
                           </ul>
+                      </div>
+
+                      {/* Sub-options for time - PLAN SALUD */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div className="border border-brand-green/30 p-3 rounded-sm text-center hover:bg-brand-green/5 transition-colors cursor-default">
+                            <span className="block text-lg font-black text-brand-dark">1 Mes</span>
+                        </div>
+                        <div className="border border-brand-green/30 p-3 rounded-sm text-center hover:bg-brand-green/5 transition-colors cursor-default">
+                            <span className="block text-lg font-black text-brand-dark">3 Meses</span>
+                        </div>
+                        <div className="border border-brand-green/30 p-3 rounded-sm text-center hover:bg-brand-green/5 transition-colors cursor-default relative overflow-hidden bg-brand-green/5">
+                             <div className="absolute top-0 right-0 bg-brand-green text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Popular</div>
+                            <span className="block text-lg font-black text-brand-dark">6 Meses</span>
+                        </div>
+                        <div className="border border-brand-green/30 p-3 rounded-sm text-center hover:bg-brand-green/5 transition-colors cursor-default">
+                            <span className="block text-lg font-black text-brand-dark">9 Meses</span>
+                        </div>
                       </div>
 
                     </div>

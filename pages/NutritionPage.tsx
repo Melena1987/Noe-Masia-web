@@ -47,31 +47,31 @@ export const NutritionPage: React.FC = () => {
       {/* Food Gallery Mosaic */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-           <div className="aspect-square overflow-hidden rounded-sm">
+           <div className="aspect-[3/4] overflow-hidden rounded-sm">
              <img 
-              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631710_noe_masia_nutrici_n.jpg?alt=media&token=d984aa7c-f080-4c3a-8129-78e004dabe15" 
-              alt="Noelia Masiá Nutrición" 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209788612_salmon_cortado.jpg?alt=media&token=68ebcd5e-faaa-48b4-85de-e7e97568000d" 
+              alt="Salmón y grasas saludables" 
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
             />
            </div>
-           <div className="aspect-square overflow-hidden rounded-sm md:mt-12">
+           <div className="aspect-[3/4] overflow-hidden rounded-sm md:mt-12">
              <img 
-               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765179478682_frutas_negras.png?alt=media&token=0863687d-c873-4fd9-9214-5ad25d763894" 
-               alt="Frutas frescas y antioxidantes" 
+               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209586344_platano.jpg?alt=media&token=3f27bdde-26ab-460b-8bef-805b169529bc" 
+               alt="Plátano y energía natural" 
                className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
              />
            </div>
-           <div className="aspect-square overflow-hidden rounded-sm">
+           <div className="aspect-[3/4] overflow-hidden rounded-sm">
              <img 
-              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631709_noe_masia_nutricion.jpg?alt=media&token=92290d1a-4f66-4246-ba99-a7bbd3ed4631" 
-              alt="Consulta Nutrición" 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209788612_frambuesa.jpg?alt=media&token=d244bd0e-9091-4c30-9db1-18868692cd53" 
+              alt="Frutos rojos antioxidantes" 
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
             />
            </div>
-           <div className="aspect-square overflow-hidden rounded-sm md:mt-12">
+           <div className="aspect-[3/4] overflow-hidden rounded-sm md:mt-12">
              <img 
-               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765179478682_pasta_seca.png?alt=media&token=10938296-7a39-4665-be01-e3b88162b21e" 
-               alt="Carbohidratos y energía" 
+               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764606631709_noe_masia_nutricion.jpg?alt=media&token=92290d1a-4f66-4246-ba99-a7bbd3ed4631" 
+               alt="Consulta Nutrición Noelia Masiá" 
                className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
              />
            </div>
