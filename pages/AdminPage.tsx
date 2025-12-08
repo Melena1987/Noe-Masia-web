@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { Button } from '../components/Button';
-import { Lock, LogOut, LayoutGrid, Calendar, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, ChevronUp } from 'lucide-react';
+import { Lock, LogOut, LayoutGrid, Calendar, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 // Data types based on our forms
@@ -126,16 +127,18 @@ export const AdminPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <SEO title="Admin Login" description="Acceso restringido" />
-        <div className="bg-white p-8 rounded-sm shadow-xl w-full max-w-md border-t-4 border-brand-green">
+        <div className="bg-white p-8 rounded-sm shadow-xl w-full max-w-md border-t-4 border-brand-green flex flex-col items-center">
           <div className="flex flex-col items-center mb-6">
-            <div className="bg-brand-green/10 p-4 rounded-full mb-4">
-              <Lock className="text-brand-green w-8 h-8" />
-            </div>
+            <img 
+              src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764604683421_Logo_Noe_Masi___400x400.png?alt=media&token=22b6be11-a50d-42f6-ba19-90215d779d94"
+              alt="Admin Logo"
+              className="w-24 h-24 object-contain mb-4"
+            />
             <h1 className="text-2xl font-black uppercase text-brand-dark">Panel de Control</h1>
             <p className="text-gray-400 text-sm mt-2 font-light">Acceso exclusivo Noe Masiá</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4 w-full">
             <div>
               <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Email</label>
               <input 
@@ -163,6 +166,10 @@ export const AdminPage: React.FC = () => {
               Entrar
             </Button>
           </form>
+
+          <Link to="/" className="mt-8 text-sm text-gray-400 hover:text-brand-green flex items-center gap-2 transition-colors">
+             <ArrowLeft size={16} /> Volver a la web
+          </Link>
         </div>
       </div>
     );
@@ -176,9 +183,14 @@ export const AdminPage: React.FC = () => {
       {/* Header */}
       <header className="bg-brand-dark text-white shadow-lg sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <h1 className="text-lg md:text-xl font-black uppercase flex items-center gap-2 tracking-widest">
-            <LayoutGrid size={20} className="text-brand-green"/> Panel Admin
-          </h1>
+          <div className="flex items-center gap-6">
+            <h1 className="text-lg md:text-xl font-black uppercase flex items-center gap-2 tracking-widest">
+              <LayoutGrid size={20} className="text-brand-green"/> Panel Admin
+            </h1>
+            <Link to="/" className="hidden md:flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-white transition-colors border-l border-gray-700 pl-6">
+              <ArrowLeft size={14} /> Web Principal
+            </Link>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-xs text-gray-400 hidden md:inline font-mono">{user.email}</span>
             <button onClick={handleLogout} className="text-gray-300 hover:text-white hover:bg-white/10 p-2 rounded-full transition-colors" title="Cerrar sesión">
