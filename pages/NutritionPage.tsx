@@ -1,10 +1,10 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NutritionHero } from '../components/nutrition/NutritionHero';
 import { NutritionServices } from '../components/nutrition/NutritionServices';
 import { NutritionPlans } from '../components/nutrition/NutritionPlans';
 import { NutritionCTA } from '../components/nutrition/NutritionCTA';
 import { Testimonials } from '../components/Testimonials';
+import { SEO } from '../components/SEO';
 
 // Data for testimonials/clients
 const testimonials = [
@@ -41,16 +41,19 @@ const testimonials = [
 ];
 
 export const NutritionPage: React.FC = () => {
-  useEffect(() => {
-    document.title = "Nutrición Deportiva y Salud | Noe Masiá";
-  }, []);
-
   const scrollToContact = () => {
     document.getElementById('nutrition-contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="bg-white min-h-screen text-brand-dark relative z-10 overflow-x-hidden selection:bg-brand-green selection:text-white">
+      <SEO 
+        title="Nutrición Deportiva & Salud Hormonal"
+        description="Planes de nutrición online y presencial con Noe Masiá. Especializada en alto rendimiento, ciclo menstrual, SOP, endometriosis y educación alimentaria."
+        keywords="Nutricionista Deportiva, Dieta Deportista, Nutrición Online, SOP dieta, Endometriosis Nutrición, Rendimiento Deportivo, Plan Atleta, Noe Masia Nutrición"
+        url="https://noemasia.com/nutricion"
+        image="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1764607006196_logo_noe_salud_nutrocion_y_alto_rendimiento__1_.png?alt=media&token=b341ba68-5fbf-43f1-9858-f35f8aef9740"
+      />
       <NutritionHero />
       <NutritionServices />
       
@@ -60,21 +63,21 @@ export const NutritionPage: React.FC = () => {
            <div className="aspect-[3/4] overflow-hidden rounded-sm">
              <img 
               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209788612_salmon_cortado.jpg?alt=media&token=68ebcd5e-faaa-48b4-85de-e7e97568000d" 
-              alt="Salmón y grasas saludables" 
+              alt="Salmón y grasas saludables para deportistas" 
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
             />
            </div>
            <div className="aspect-[3/4] overflow-hidden rounded-sm md:mt-12">
              <img 
                src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209586344_platano.jpg?alt=media&token=3f27bdde-26ab-460b-8bef-805b169529bc" 
-               alt="Plátano y energía natural" 
+               alt="Fruta y energía natural pre-entreno" 
                className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
              />
            </div>
            <div className="aspect-[3/4] overflow-hidden rounded-sm">
              <img 
               src="https://firebasestorage.googleapis.com/v0/b/galeriaoficialapp.firebasestorage.app/o/users%2FI5KZz4BuUEfxcoAvSCAWllkQtwt1%2Fphotos%2F1765209788612_frambuesa.jpg?alt=media&token=d244bd0e-9091-4c30-9db1-18868692cd53" 
-              alt="Frutos rojos antioxidantes" 
+              alt="Antioxidantes y frutos rojos" 
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
             />
            </div>
