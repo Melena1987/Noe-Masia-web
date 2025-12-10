@@ -54,9 +54,14 @@ export const Footer: React.FC = () => {
           </a>
         </div>
 
-        <p className="text-gray-600 text-sm">
-          &copy; {new Date().getFullYear()} Noe Masiá. Todos los derechos reservados.
-        </p>
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-4">
+          <p className="text-gray-600 text-sm">
+            &copy; {new Date().getFullYear()} Noe Masiá. Todos los derechos reservados.
+          </p>
+          <Link to="/legal" className="text-gray-600 text-xs hover:text-brand-green transition-colors underline decoration-gray-700 underline-offset-4">
+            Aviso Legal y Privacidad
+          </Link>
+        </div>
         
         <div className="flex items-center justify-center gap-2 text-gray-500 text-xs mt-4">
           <span>Diseñado con</span>

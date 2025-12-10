@@ -2,10 +2,12 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { CookieBanner } from './components/CookieBanner';
 import { HomePage } from './pages/HomePage';
 import { NutritionPage } from './pages/NutritionPage';
 import { CampusPage } from './pages/CampusPage';
 import { AdminPage } from './pages/AdminPage';
+import { LegalPage } from './pages/LegalPage';
 import { useEffect } from 'react';
 
 function App() {
@@ -27,9 +29,11 @@ function App() {
           <Route path="/nutricion" element={<NutritionPage />} />
           <Route path="/campus" element={<CampusPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/legal" element={<LegalPage />} />
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}
+      <CookieBanner />
     </div>
   );
 }
