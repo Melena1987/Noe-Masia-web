@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Instagram, Heart, Mail, MessageCircle, Lock } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   const [isHighlighted, setIsHighlighted] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleHighlight = () => {
@@ -16,6 +17,13 @@ export const Footer: React.FC = () => {
     return () => window.removeEventListener('highlight-contact', handleHighlight);
   }, []);
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Determine classes based on state
   const iconBaseClass = "transition-all duration-300";
   const iconNormalClass = "text-gray-500 hover:text-brand-green";
@@ -24,7 +32,13 @@ export const Footer: React.FC = () => {
   return (
     <footer id="contact" className="bg-brand-dark border-t border-gray-900 py-12 text-center">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-        <h2 className="text-2xl font-bold uppercase tracking-widest text-white mb-6">Noe Masiá</h2>
+        <Link 
+          to="/"
+          onClick={handleLogoClick}
+          className="text-2xl font-bold uppercase tracking-widest text-white mb-6 hover:text-brand-green transition-colors"
+        >
+          Noe Masiá
+        </Link>
         
         <div className="flex space-x-8 mb-8">
           <a 
