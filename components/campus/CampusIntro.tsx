@@ -8,7 +8,19 @@ export const CampusIntro: React.FC = () => {
         
         {/* Locations / Sedes Section */}
         <div className="mb-24">
-          <h2 className="text-center text-3xl font-black uppercase text-white mb-12">Nuestras Sedes</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black uppercase text-white mb-4">Nuestras Sedes</h2>
+            <div className="inline-block border border-brand-lime/50 bg-brand-lime/10 backdrop-blur-md px-8 py-3 rounded-full">
+              <span className="text-brand-lime font-bold uppercase tracking-widest text-sm md:text-base block md:inline">
+                Desde Baby hasta Junior
+              </span>
+              <span className="hidden md:inline text-brand-lime/50 mx-3">|</span>
+              <span className="text-white font-light text-sm md:text-base block md:inline mt-1 md:mt-0">
+                Nacidos entre 2008 y 2019
+              </span>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
             
             {/* Estepona */}

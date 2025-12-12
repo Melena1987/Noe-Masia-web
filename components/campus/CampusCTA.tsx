@@ -109,8 +109,11 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         
         <div className="text-center mb-16">
           <h3 className="text-4xl font-black uppercase mb-6 text-brand-dark">Únete al Campus</h3>
-          <p className="max-w-2xl mx-auto text-gray-500 font-light">
+          <p className="max-w-2xl mx-auto text-gray-500 font-light mb-4">
             Elige tu sede y reserva tu plaza. Las plazas son limitadas para asegurar la calidad de los entrenamientos.
+          </p>
+          <p className="text-brand-green font-bold uppercase tracking-widest text-xs border border-brand-green/30 inline-block px-4 py-2 rounded-full">
+            Categorías: Baby a Junior (Nacidos 2008 - 2019)
           </p>
         </div>
 
@@ -211,8 +214,8 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               </div>
               
               <div className="space-y-1">
-                 <label className="text-xs font-bold uppercase text-gray-500">Edad</label>
-                 <input required name="age" autoComplete="off" value={formData.age} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Años" />
+                 <label className="text-xs font-bold uppercase text-gray-500">Edad (7-18 años)</label>
+                 <input required name="age" autoComplete="off" value={formData.age} onChange={handleChange} type="number" min="7" max="18" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Años" />
               </div>
               <div className="space-y-1">
                  <label className="text-xs font-bold uppercase text-gray-500">Talla Camiseta</label>
@@ -254,7 +257,8 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold uppercase text-gray-500">Categoría</label>
-                <input required name="category" autoComplete="off" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                <input required name="category" autoComplete="off" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ej. Mini, Infantil..." />
+                <p className="text-[10px] text-gray-400 pt-1">*Nacidos entre 2008 y 2019</p>
               </div>
               <div className="space-y-1 md:col-span-2">
                 <label className="text-xs font-bold uppercase text-gray-500">Años jugando a baloncesto</label>
