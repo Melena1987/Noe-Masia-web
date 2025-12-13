@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { CheckCircle, Tag, AlertCircle } from 'lucide-react';
+import { CheckCircle, Tag, AlertCircle, User, Users, HeartPulse, MapPin } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -17,24 +17,33 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
     location: '',
     isClubMember: 'No',
     playerName: '',
+    birthDate: '',
+    shirtSize: '',
+    club: '',
+    category: '',
+    yearsPlaying: '',
     tutorName: '',
     tutorDni: '',
     email: '',
     address: '',
-    age: '',
-    birthDate: '',
-    category: '',
-    club: '',
-    yearsPlaying: '',
-    allergies: '',
-    intolerances: '',
+    medicalInfo: '', // Merged field
     otherInfo: '',
-    shirtSize: '',
     paymentMethod: 'Transferencia'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const calculateAge = (birthDateString: string) => {
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age.toString();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,11 +52,17 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
     setSubmitStatus('idle');
     setErrorMessage('');
 
+    const calculatedAge = calculateAge(formData.birthDate);
+
     try {
       await addDoc(collection(db, "campus_registrations"), {
         ...formData,
+        // Mapping new fields to match existing DB structure for Admin compatibility
+        age: calculatedAge, 
+        allergies: formData.medicalInfo, // Storing merged health info here
+        intolerances: '', // Leaving empty as it's merged
         createdAt: serverTimestamp(),
-        status: 'pending', // pending, contactado, pagado
+        status: 'pending',
         viewed: false
       });
       
@@ -59,19 +74,17 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         location: '',
         isClubMember: 'No',
         playerName: '',
+        birthDate: '',
+        shirtSize: '',
+        club: '',
+        category: '',
+        yearsPlaying: '',
         tutorName: '',
         tutorDni: '',
         email: '',
         address: '',
-        age: '',
-        birthDate: '',
-        category: '',
-        club: '',
-        yearsPlaying: '',
-        allergies: '',
-        intolerances: '',
+        medicalInfo: '',
         otherInfo: '',
-        shirtSize: '',
         paymentMethod: 'Transferencia'
       });
 
@@ -87,7 +100,7 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   if (submitStatus === 'success') {
     return (
       <section id="contact" className="py-24 bg-white text-brand-dark px-6">
-        <div className="max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm border-t-4 border-brand-lime shadow-xl">
+        <div className="max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm border-t-4 border-brand-lime shadow-xl animate-fade-in-up">
            <div className="flex justify-center mb-6">
              <CheckCircle size={64} className="text-brand-lime" />
            </div>
@@ -120,7 +133,7 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
           {/* Estepona Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green">
+          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green group hover:-translate-y-1 transition-transform duration-300">
             <div className="absolute top-0 right-0 bg-brand-green text-xs font-bold px-3 py-1 uppercase text-white">Málaga</div>
             <h4 className="text-2xl font-black uppercase mb-2">Estepona</h4>
             <p className="text-sm text-gray-400 mb-6">Pabellón JA Pineda (13-18 Julio)</p>
@@ -142,12 +155,11 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
             <ul className="text-sm text-gray-300 space-y-2 mb-6">
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Agua, Fruta y Snacks diarios</li>
-              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Charlas formativas</li>
             </ul>
           </div>
 
           {/* Moncofa Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime">
+          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime group hover:-translate-y-1 transition-transform duration-300">
             <div className="absolute top-0 right-0 bg-brand-lime text-xs font-bold px-3 py-1 uppercase text-brand-dark">Castellón</div>
             <h4 className="text-2xl font-black uppercase mb-2">Moncofa</h4>
             <p className="text-sm text-gray-400 mb-6">Instalaciones Municipales (3-8 Agosto)</p>
@@ -169,22 +181,27 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
             <ul className="text-sm text-gray-300 space-y-2 mb-6">
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Agua, Fruta y Snacks diarios</li>
-              <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Charlas formativas</li>
             </ul>
           </div>
         </div>
 
-        <div className="bg-gray-50 p-8 md:p-12 rounded-sm border border-gray-200 shadow-2xl max-w-4xl mx-auto">
-          <h4 className="text-2xl font-bold uppercase mb-8 text-center border-b border-gray-200 pb-4">Formulario de Inscripción</h4>
+        <div className="bg-white border border-gray-200 shadow-2xl max-w-5xl mx-auto rounded-sm overflow-hidden">
+          <div className="bg-brand-dark p-6 text-center">
+            <h4 className="text-2xl font-black uppercase text-white">Formulario de Inscripción</h4>
+            <p className="text-gray-400 text-xs mt-1 font-light tracking-wide">Rellena los campos para formalizar tu solicitud</p>
+          </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-12">
             
-            {/* Campus Selection - HIGHLIGHTED */}
-            <div className="bg-brand-green/10 p-6 rounded-sm border border-brand-green/30">
-              <div className="grid md:grid-cols-2 gap-6">
+            {/* SECTION 1: SEDE */}
+            <div className="bg-brand-green/5 p-6 md:p-8 rounded-sm border border-brand-green/20 relative">
+              <div className="absolute -top-3 left-6 bg-brand-green text-white text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
+                 <MapPin size={12} /> Sede y Vinculación
+              </div>
+              <div className="grid md:grid-cols-2 gap-6 mt-2">
                 <div className="space-y-1">
                    <label className="text-xs font-bold uppercase text-brand-dark">Selecciona Sede</label>
-                   <select required name="location" value={formData.location} onChange={handleChange} className="w-full border-2 border-brand-green p-3 rounded-sm focus:outline-none bg-white text-brand-dark font-bold">
+                   <select required name="location" value={formData.location} onChange={handleChange} className="w-full border-2 border-brand-green p-3 rounded-sm focus:outline-none bg-white text-brand-dark font-bold cursor-pointer hover:bg-gray-50 transition-colors">
                       <option value="">-- Elige una opción --</option>
                       <option value="Estepona">ESTEPONA (13-18 Julio)</option>
                       <option value="Moncofa">MONCOFA (3-8 Agosto)</option>
@@ -192,92 +209,105 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
                 </div>
                 <div className="space-y-1">
                    <label className="text-xs font-bold uppercase text-brand-dark">¿Perteneces al club de la sede?</label>
-                   <select required name="isClubMember" value={formData.isClubMember} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
+                   <select required name="isClubMember" value={formData.isClubMember} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark cursor-pointer">
                       <option value="No">No</option>
                       <option value="Si - CAB Estepona">Sí, soy del CAB Estepona</option>
                       <option value="Si - Moncofa">Sí, soy del Club Moncofa</option>
                    </select>
-                   <p className="text-[10px] text-gray-500 pt-1">*Se verificará con el club correspondiente.</p>
+                   <p className="text-[10px] text-gray-400 pt-1">*Se aplicará el descuento tras verificación.</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Personal Info */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Nombre Completo Jugador/a</label>
-                <input required name="playerName" autoComplete="name" value={formData.playerName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Nombre y Apellidos" />
+            {/* SECTION 2: JUGADOR */}
+            <div className="relative border-t border-gray-100 pt-8">
+               <div className="absolute -top-3 left-6 bg-white text-gray-500 border border-gray-200 text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
+                 <User size={12} /> Datos del Jugador/a
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Fecha Nacimiento</label>
-                <input required name="birthDate" autoComplete="bday" value={formData.birthDate} onChange={handleChange} type="date" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
-              </div>
-              
-              <div className="space-y-1">
-                 <label className="text-xs font-bold uppercase text-gray-500">Edad (7-18 años)</label>
-                 <input required name="age" autoComplete="off" value={formData.age} onChange={handleChange} type="number" min="7" max="18" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Años" />
-              </div>
-              <div className="space-y-1">
-                 <label className="text-xs font-bold uppercase text-gray-500">Talla Camiseta</label>
-                 <select name="shirtSize" autoComplete="off" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
-                    <option value="">Selecciona talla</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                 </select>
-              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Nombre Completo</label>
+                  <input required name="playerName" autoComplete="name" value={formData.playerName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Nombre y Apellidos" />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase text-gray-500">Fecha Nacimiento</label>
+                    <input required name="birthDate" autoComplete="bday" value={formData.birthDate} onChange={handleChange} type="date" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                  </div>
+                  <div className="space-y-1">
+                     <label className="text-xs font-bold uppercase text-gray-500">Talla Camiseta</label>
+                     <select name="shirtSize" autoComplete="off" value={formData.shirtSize} onChange={handleChange} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark">
+                        <option value="">Selecciona</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                     </select>
+                  </div>
+                </div>
 
-              {/* Tutor Info */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Nombre Tutor/a</label>
-                <input required name="tutorName" autoComplete="name" value={formData.tutorName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Club Actual</label>
+                  <input required name="club" autoComplete="organization" value={formData.club} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase text-gray-500">Categoría</label>
+                    <input required name="category" autoComplete="off" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ej. Infantil" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold uppercase text-gray-500">Años jugando</label>
+                    <input required name="yearsPlaying" autoComplete="off" value={formData.yearsPlaying} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                  </div>
+                </div>
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">DNI Tutor/a</label>
-                <input required name="tutorDni" autoComplete="off" value={formData.tutorDni} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
-              </div>
+            </div>
 
-              {/* Contact Info */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Correo Electrónico</label>
-                <input required name="email" autoComplete="email" value={formData.email} onChange={handleChange} type="email" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+            {/* SECTION 3: TUTOR */}
+            <div className="relative border-t border-gray-100 pt-8">
+               <div className="absolute -top-3 left-6 bg-white text-gray-500 border border-gray-200 text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
+                 <Users size={12} /> Contacto y Tutor/a
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Dirección</label>
-                <input required name="address" autoComplete="street-address" value={formData.address} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
-              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Nombre Tutor/a Legal</label>
+                  <input required name="tutorName" autoComplete="name" value={formData.tutorName} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">DNI Tutor/a</label>
+                  <input required name="tutorDni" autoComplete="off" value={formData.tutorDni} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                </div>
 
-              {/* Sport Info */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Club Actual</label>
-                <input required name="club" autoComplete="organization" value={formData.club} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Correo Electrónico</label>
+                  <input required name="email" autoComplete="email" value={formData.email} onChange={handleChange} type="email" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Dirección Completa</label>
+                  <input required name="address" autoComplete="street-address" value={formData.address} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
+                </div>
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Categoría</label>
-                <input required name="category" autoComplete="off" value={formData.category} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ej. Mini, Infantil..." />
-                <p className="text-[10px] text-gray-400 pt-1">*Nacidos entre 2008 y 2019</p>
-              </div>
-              <div className="space-y-1 md:col-span-2">
-                <label className="text-xs font-bold uppercase text-gray-500">Años jugando a baloncesto</label>
-                <input required name="yearsPlaying" autoComplete="off" value={formData.yearsPlaying} onChange={handleChange} type="number" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" />
-              </div>
+            </div>
 
-              {/* Health Info */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Alergias</label>
-                <input name="allergies" autoComplete="off" value={formData.allergies} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ninguna o especificar" />
+            {/* SECTION 4: SALUD & EXTRA */}
+            <div className="relative border-t border-gray-100 pt-8">
+               <div className="absolute -top-3 left-6 bg-white text-gray-500 border border-gray-200 text-[10px] font-bold uppercase px-3 py-1 rounded-full flex items-center gap-1">
+                 <HeartPulse size={12} /> Salud y Observaciones
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-gray-500">Intolerancias</label>
-                <input name="intolerances" autoComplete="off" value={formData.intolerances} onChange={handleChange} type="text" className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark" placeholder="Ninguna o especificar" />
-              </div>
-              
-              <div className="space-y-1 md:col-span-2">
-                <label className="text-xs font-bold uppercase text-gray-500">Otras cosas importantes a destacar</label>
-                <textarea name="otherInfo" autoComplete="off" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark"></textarea>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Alergias / Intolerancias / Problemas Médicos</label>
+                  <textarea name="medicalInfo" autoComplete="off" value={formData.medicalInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark resize-none" placeholder="Indica 'Ninguna' si no procede, o detalla cualquier condición relevante."></textarea>
+                </div>
+                
+                <div className="space-y-1">
+                  <label className="text-xs font-bold uppercase text-gray-500">Otras cosas a destacar (Opcional)</label>
+                  <textarea name="otherInfo" autoComplete="off" value={formData.otherInfo} onChange={handleChange} rows={3} className="w-full border p-3 rounded-sm focus:border-brand-green outline-none bg-white text-brand-dark resize-none" placeholder="Cualquier otra información que debamos saber."></textarea>
+                </div>
               </div>
             </div>
             
@@ -288,11 +318,11 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               </div>
             )}
 
-            <Button disabled={isSubmitting} variant="lime" type="submit" className="w-full py-4 text-base font-bold shadow-lg mt-6 disabled:opacity-50">
-              {isSubmitting ? 'Procesando...' : 'Solicitar Plaza'}
+            <Button disabled={isSubmitting} variant="lime" type="submit" className="w-full py-5 text-base md:text-lg font-bold shadow-lg disabled:opacity-50">
+              {isSubmitting ? 'Procesando...' : 'FINALIZAR INSCRIPCIÓN'}
             </Button>
-            <p className="text-center text-xs text-gray-400 mt-4">
-              Tus datos serán guardados para gestionar la inscripción.
+            <p className="text-center text-xs text-gray-400">
+              Al hacer clic en finalizar, tus datos serán registrados de forma segura.
             </p>
           </form>
         </div>
