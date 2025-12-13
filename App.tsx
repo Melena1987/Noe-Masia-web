@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -8,6 +8,7 @@ import { NutritionPage } from './pages/NutritionPage';
 import { CampusPage } from './pages/CampusPage';
 import { AdminPage } from './pages/AdminPage';
 import { LegalPage } from './pages/LegalPage';
+import { useEffect } from 'react';
 
 function App() {
   const { pathname } = useLocation();
