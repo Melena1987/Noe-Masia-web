@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '../Button';
-import { CheckCircle, Tag, AlertCircle, User, Users, HeartPulse, MapPin } from 'lucide-react';
+import { CheckCircle, Tag, AlertCircle, User, Users, HeartPulse, MapPin, HandPointer } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -12,6 +12,9 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // Reference for smooth scrolling to form
+  const formRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
     location: '',
@@ -33,6 +36,15 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLocationSelect = (selectedLocation: string) => {
+    // Update state
+    setFormData(prev => ({ ...prev, location: selectedLocation }));
+    // Scroll to form
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   };
 
   const calculateAge = (birthDateString: string) => {
@@ -123,7 +135,7 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         <div className="text-center mb-16">
           <h3 className="text-4xl font-black uppercase mb-6 text-brand-dark">Únete al Campus</h3>
           <p className="max-w-2xl mx-auto text-gray-500 font-light mb-4">
-            Elige tu sede y reserva tu plaza. Las plazas son limitadas para asegurar la calidad de los entrenamientos.
+            Elige tu sede haciendo clic en las tarjetas o completa el formulario directamente.
           </p>
           <p className="text-brand-green font-bold uppercase tracking-widest text-xs border border-brand-green/30 inline-block px-4 py-2 rounded-full">
             Categorías: Baby a Junior (Nacidos 2008 - 2019)
@@ -133,9 +145,14 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
           {/* Estepona Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green group hover:-translate-y-1 transition-transform duration-300">
-            <div className="absolute top-0 right-0 bg-brand-green text-xs font-bold px-3 py-1 uppercase text-white">Málaga</div>
-            <h4 className="text-2xl font-black uppercase mb-2">Estepona</h4>
+          <div 
+            onClick={() => handleLocationSelect('Estepona')}
+            className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green group hover:-translate-y-2 transition-all duration-300 cursor-pointer ring-2 ring-transparent hover:ring-brand-green/50"
+          >
+            <div className="absolute top-0 right-0 bg-brand-green text-xs font-bold px-3 py-1 uppercase text-white flex items-center gap-1">
+              <HandPointer size={12} className="animate-pulse" /> Seleccionar
+            </div>
+            <h4 className="text-2xl font-black uppercase mb-2 group-hover:text-brand-green transition-colors">Estepona</h4>
             <p className="text-sm text-gray-400 mb-6">Pabellón JA Pineda (13-18 Julio)</p>
             
             <div className="mb-6">
@@ -156,12 +173,21 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Agua, Fruta y Snacks diarios</li>
             </ul>
+            
+            <div className="mt-4 text-center text-xs text-gray-400 uppercase tracking-widest font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+              Clic para inscribirse aquí
+            </div>
           </div>
 
           {/* Moncofa Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime group hover:-translate-y-1 transition-transform duration-300">
-            <div className="absolute top-0 right-0 bg-brand-lime text-xs font-bold px-3 py-1 uppercase text-brand-dark">Castellón</div>
-            <h4 className="text-2xl font-black uppercase mb-2">Moncofa</h4>
+          <div 
+            onClick={() => handleLocationSelect('Moncofa')}
+            className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime group hover:-translate-y-2 transition-all duration-300 cursor-pointer ring-2 ring-transparent hover:ring-brand-lime/50"
+          >
+            <div className="absolute top-0 right-0 bg-brand-lime text-xs font-bold px-3 py-1 uppercase text-brand-dark flex items-center gap-1">
+               <HandPointer size={12} className="animate-pulse" /> Seleccionar
+            </div>
+            <h4 className="text-2xl font-black uppercase mb-2 group-hover:text-brand-lime transition-colors">Moncofa</h4>
             <p className="text-sm text-gray-400 mb-6">Instalaciones Municipales (3-8 Agosto)</p>
             
             <div className="mb-6">
@@ -182,10 +208,14 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Agua, Fruta y Snacks diarios</li>
             </ul>
+            
+            <div className="mt-4 text-center text-xs text-gray-400 uppercase tracking-widest font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+              Clic para inscribirse aquí
+            </div>
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 shadow-2xl max-w-5xl mx-auto rounded-sm overflow-hidden">
+        <div ref={formRef} className="bg-white border border-gray-200 shadow-2xl max-w-5xl mx-auto rounded-sm overflow-hidden scroll-mt-24">
           <div className="bg-brand-dark p-6 text-center">
             <h4 className="text-2xl font-black uppercase text-white">Formulario de Inscripción</h4>
             <p className="text-gray-400 text-xs mt-1 font-light tracking-wide">Rellena los campos para formalizar tu solicitud</p>
