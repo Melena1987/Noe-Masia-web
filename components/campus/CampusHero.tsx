@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from '../Button';
+import { ArrowDown } from 'lucide-react';
 
-export const CampusHero: React.FC = () => {
+interface CampusHeroProps {
+  onRegisterClick: () => void;
+}
+
+export const CampusHero: React.FC<CampusHeroProps> = ({ onRegisterClick }) => {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -41,9 +47,19 @@ export const CampusHero: React.FC = () => {
         <h1 className="text-5xl md:text-8xl font-black uppercase text-white mb-6 leading-[0.9] drop-shadow-2xl animate-fade-in-up" style={{animationDelay: '0.2s'}}>
           Campus<br/>Noe Masiá
         </h1>
-        <p className="text-xl md:text-2xl font-light text-gray-200 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+        <p className="text-xl md:text-2xl font-light text-gray-200 max-w-2xl mx-auto animate-fade-in-up mb-10" style={{animationDelay: '0.3s'}}>
           Un espacio para crecer dentro y fuera de la pista.
         </p>
+        
+        <div className="animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+           <Button 
+            onClick={onRegisterClick} 
+            variant="lime" 
+            className="px-10 py-5 text-base md:text-lg shadow-xl shadow-brand-lime/20 hover:shadow-brand-lime/40 flex items-center gap-2"
+           >
+             ¡Reserva tu plaza ya! <ArrowDown size={20} className="animate-bounce" />
+           </Button>
+        </div>
       </div>
     </section>
   );
