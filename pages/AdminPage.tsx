@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { Button } from '../components/Button';
-import { Lock, LogOut, LayoutGrid, Calendar, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
+import { Lock, LogOut, LayoutGrid, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, RefreshCcw, ArrowLeft, Download, Trash2, ArchiveRestore, AlertTriangle } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 // Data types based on our forms
@@ -17,6 +17,7 @@ interface NutritionRequest {
   message: string;
   createdAt: any;
   status: string;
+  deletedAt?: any;
 }
 
 interface CampusRegistration {
@@ -41,6 +42,7 @@ interface CampusRegistration {
   otherInfo: string;
   paymentMethod: string;
   status: string;
+  deletedAt?: any;
 }
 
 export const AdminPage: React.FC = () => {
@@ -54,6 +56,7 @@ export const AdminPage: React.FC = () => {
 
   // Dashboard Data State
   const [activeTab, setActiveTab] = useState<'campus' | 'nutrition'>('campus');
+  const [viewTrash, setViewTrash] = useState(false); // Toggle for Trash view
   const [nutritionRequests, setNutritionRequests] = useState<NutritionRequest[]>([]);
   const [campusRegistrations, setCampusRegistrations] = useState<CampusRegistration[]>([]);
   const [dataLoading, setDataLoading] = useState(false);
@@ -120,6 +123,94 @@ export const AdminPage: React.FC = () => {
     return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit' });
   };
 
+  // --- ACTIONS: EXPORT & TRASH ---
+
+  const handleExportCSV = () => {
+    // Determine which data to export based on active tab and trash view
+    const isCampus = activeTab === 'campus';
+    const sourceData = isCampus ? campusRegistrations : nutritionRequests;
+    
+    // Filter data same as the view
+    const filteredData = sourceData.filter(item => 
+      viewTrash ? item.status === 'trash' : item.status !== 'trash'
+    );
+
+    if (filteredData.length === 0) {
+      alert("No hay datos para exportar en esta vista.");
+      return;
+    }
+
+    // Convert to CSV
+    const headers = Object.keys(filteredData[0]).join(",");
+    const rows = filteredData.map(row => 
+      Object.values(row).map(value => {
+        // Handle dates and objects
+        if (typeof value === 'object' && value !== null) {
+           // Basic check for Firebase timestamp-like objects
+           if ('seconds' in value) return `"${new Date((value as any).seconds * 1000).toLocaleDateString()}"`;
+           return `"${JSON.stringify(value).replace(/"/g, '""')}"`;
+        }
+        return `"${String(value).replace(/"/g, '""')}"`; 
+      }).join(",")
+    );
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    const fileName = `${activeTab}_${viewTrash ? 'papelera' : 'activos'}_${new Date().toISOString().slice(0,10)}.csv`;
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleMoveToTrash = async (e: React.MouseEvent, collectionName: string, id: string) => {
+    e.stopPropagation();
+    if (!window.confirm("¿Mover este registro a la papelera?")) return;
+
+    try {
+      await updateDoc(doc(db, collectionName, id), {
+        status: 'trash',
+        deletedAt: serverTimestamp()
+      });
+      fetchData(); // Refresh UI
+    } catch (error) {
+      console.error("Error moving to trash", error);
+      alert("Error al mover a la papelera");
+    }
+  };
+
+  const handleRestore = async (e: React.MouseEvent, collectionName: string, id: string) => {
+    e.stopPropagation();
+    try {
+      await updateDoc(doc(db, collectionName, id), {
+        status: 'pending', // or 'new', default status
+        deletedAt: null
+      });
+      fetchData();
+    } catch (error) {
+      console.error("Error restoring", error);
+    }
+  };
+
+  const handleDeletePermanent = async (e: React.MouseEvent, collectionName: string, id: string) => {
+    e.stopPropagation();
+    if (!window.confirm("PELIGRO: Esto eliminará el registro PARA SIEMPRE. ¿Estás seguro?")) return;
+    
+    try {
+      await deleteDoc(doc(db, collectionName, id));
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting", error);
+    }
+  };
+
+  // --- FILTERING ---
+  const filteredCampus = campusRegistrations.filter(r => viewTrash ? r.status === 'trash' : r.status !== 'trash');
+  const filteredNutrition = nutritionRequests.filter(r => viewTrash ? r.status === 'trash' : r.status !== 'trash');
+
+
   if (loading) return <div className="min-h-screen flex items-center justify-center text-brand-green font-bold animate-pulse">Cargando Noe Masiá Admin...</div>;
 
   // LOGIN VIEW
@@ -181,11 +272,12 @@ export const AdminPage: React.FC = () => {
       <SEO title="Admin Dashboard" description="Panel de control" />
       
       {/* Header */}
-      <header className="bg-brand-dark text-white shadow-lg sticky top-0 z-40">
+      <header className={`text-white shadow-lg sticky top-0 z-40 transition-colors duration-300 ${viewTrash ? 'bg-gray-800' : 'bg-brand-dark'}`}>
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <h1 className="text-lg md:text-xl font-black uppercase flex items-center gap-2 tracking-widest">
-              <LayoutGrid size={20} className="text-brand-green"/> Panel Admin
+              <LayoutGrid size={20} className={viewTrash ? "text-red-400" : "text-brand-green"}/> 
+              {viewTrash ? "Papelera" : "Panel Admin"}
             </h1>
             <Link to="/" className="hidden md:flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-white transition-colors border-l border-gray-700 pl-6">
               <ArrowLeft size={14} /> Web Principal
@@ -202,35 +294,71 @@ export const AdminPage: React.FC = () => {
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-8">
         
-        {/* Tabs & Actions */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-           <div className="flex gap-1 bg-white p-1 rounded-sm shadow-sm border border-gray-200">
+        {/* Top Controls: TABS + ACTIONS */}
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-8 gap-6">
+           
+           {/* Left: Tabs */}
+           <div className="flex gap-1 bg-white p-1 rounded-sm shadow-sm border border-gray-200 w-full md:w-auto">
             <button 
               onClick={() => setActiveTab('campus')}
-              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
+              className={`flex-1 md:flex-none py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
                 activeTab === 'campus' 
                   ? 'bg-brand-dark text-white shadow-md' 
                   : 'text-gray-500 hover:bg-gray-50'
               }`}
             >
-              Campus ({campusRegistrations.length})
+              Campus ({filteredCampus.length})
             </button>
             <button 
               onClick={() => setActiveTab('nutrition')}
-              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
+              className={`flex-1 md:flex-none py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
                 activeTab === 'nutrition' 
                   ? 'bg-brand-dark text-white shadow-md' 
                   : 'text-gray-500 hover:bg-gray-50'
               }`}
             >
-              Nutrición ({nutritionRequests.length})
+              Nutrición ({filteredNutrition.length})
             </button>
           </div>
           
-          <Button variant="outline" onClick={fetchData} className="py-2 px-4 text-xs h-10 border-gray-300 text-gray-600 hover:text-brand-dark hover:border-brand-dark">
-            Actualizar Datos
-          </Button>
+          {/* Right: Actions (Refresh, Trash Toggle, Export) */}
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+             
+             <button 
+               onClick={fetchData} 
+               className="p-2 border border-gray-300 bg-white rounded-sm hover:bg-gray-50 text-gray-600"
+               title="Actualizar datos"
+             >
+               <RefreshCcw size={16} />
+             </button>
+
+             <button
+                onClick={() => setViewTrash(!viewTrash)}
+                className={`flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase border rounded-sm transition-colors ${
+                  viewTrash 
+                  ? 'bg-gray-200 border-gray-300 text-gray-700 hover:bg-gray-300' 
+                  : 'bg-white border-red-200 text-red-500 hover:bg-red-50'
+                }`}
+             >
+               {viewTrash ? <><ArrowLeft size={14}/> Ver Activos</> : <><Trash2 size={14}/> Ver Papelera</>}
+             </button>
+
+             <Button 
+                variant="outline" 
+                onClick={handleExportCSV} 
+                className="flex items-center gap-2 py-2 px-4 text-xs h-10 border-green-600 text-green-700 bg-green-50 hover:bg-green-100 hover:text-green-800"
+             >
+                <Download size={16} /> Exportar CSV
+             </Button>
+          </div>
         </div>
+
+        {viewTrash && (
+           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-sm mb-6 flex items-center gap-3 text-sm">
+             <AlertTriangle size={18} />
+             <span>Estás viendo la <strong>Papelera</strong>. Los registros aquí pueden ser restaurados o eliminados permanentemente.</span>
+           </div>
+        )}
 
         {dataLoading ? (
            <div className="flex justify-center py-20">
@@ -241,23 +369,26 @@ export const AdminPage: React.FC = () => {
             
             {/* CAMPUS LIST */}
             {activeTab === 'campus' && (
-              campusRegistrations.length === 0 ? (
+              filteredCampus.length === 0 ? (
                 <div className="text-center py-20 bg-white border border-dashed border-gray-300 rounded-sm">
-                  <p className="text-gray-400 font-light">No hay registros de Campus aún.</p>
+                  <p className="text-gray-400 font-light">No hay registros de Campus {viewTrash ? 'en la papelera' : 'activos'}.</p>
                 </div>
               ) : (
-              campusRegistrations.map((reg) => (
-                <div key={reg.id} className="bg-white border-l-4 border-brand-lime shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm">
+              filteredCampus.map((reg) => (
+                <div key={reg.id} className={`bg-white border-l-4 shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm ${viewTrash ? 'border-gray-400 opacity-75' : 'border-brand-lime'}`}>
                   <div 
                     onClick={() => toggleExpand(reg.id)}
                     className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
                   >
                     <div className="flex items-start gap-4">
-                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-md ${reg.location === 'Estepona' ? 'bg-brand-green' : 'bg-brand-lime text-brand-dark'}`}>
+                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-md ${viewTrash ? 'bg-gray-400' : (reg.location === 'Estepona' ? 'bg-brand-green' : 'bg-brand-lime text-brand-dark')}`}>
                          {reg.location ? reg.location.charAt(0) : '?'}
                        </div>
                        <div>
-                         <h3 className="font-bold text-lg text-brand-dark uppercase tracking-tight">{reg.playerName}</h3>
+                         <h3 className="font-bold text-lg text-brand-dark uppercase tracking-tight flex items-center gap-2">
+                           {reg.playerName}
+                           {viewTrash && <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full">ELIMINADO</span>}
+                         </h3>
                          <div className="flex flex-wrap gap-2 text-xs text-gray-500 mt-1 items-center">
                            <span className="flex items-center gap-1 font-bold text-brand-green"><MapPin size={12}/> {reg.location}</span>
                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
@@ -273,8 +404,39 @@ export const AdminPage: React.FC = () => {
                         <span className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Recibido</span>
                         <span className="text-xs text-brand-dark font-mono font-medium">{formatDate(reg.createdAt)}</span>
                       </div>
-                      <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === reg.id ? 'rotate-180 bg-gray-100' : ''}`}>
-                        <ChevronDown size={20} className="text-gray-400"/>
+                      
+                      {/* ACTION BUTTONS */}
+                      <div className="flex items-center gap-2">
+                         {viewTrash ? (
+                            <>
+                               <button 
+                                onClick={(e) => handleRestore(e, "campus_registrations", reg.id)}
+                                className="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                                title="Restaurar"
+                               >
+                                 <ArchiveRestore size={18} />
+                               </button>
+                               <button 
+                                onClick={(e) => handleDeletePermanent(e, "campus_registrations", reg.id)}
+                                className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                title="Eliminar Definitivamente"
+                               >
+                                 <Trash2 size={18} />
+                               </button>
+                            </>
+                         ) : (
+                            <button 
+                              onClick={(e) => handleMoveToTrash(e, "campus_registrations", reg.id)}
+                              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                              title="Mover a Papelera"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                         )}
+                         
+                         <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === reg.id ? 'rotate-180 bg-gray-100' : ''}`}>
+                           <ChevronDown size={20} className="text-gray-400"/>
+                         </div>
                       </div>
                     </div>
                   </div>
@@ -354,23 +516,26 @@ export const AdminPage: React.FC = () => {
 
             {/* NUTRITION LIST */}
             {activeTab === 'nutrition' && (
-               nutritionRequests.length === 0 ? (
+               filteredNutrition.length === 0 ? (
                 <div className="text-center py-20 bg-white border border-dashed border-gray-300 rounded-sm">
-                  <p className="text-gray-400 font-light">No hay solicitudes de Nutrición aún.</p>
+                  <p className="text-gray-400 font-light">No hay solicitudes de Nutrición {viewTrash ? 'en la papelera' : 'activas'}.</p>
                 </div>
                ) : (
-               nutritionRequests.map((req) => (
-                <div key={req.id} className="bg-white border-l-4 border-brand-green shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm">
+               filteredNutrition.map((req) => (
+                <div key={req.id} className={`bg-white border-l-4 shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm ${viewTrash ? 'border-gray-400 opacity-75' : 'border-brand-green'}`}>
                   <div 
                     onClick={() => toggleExpand(req.id)}
                     className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
                   >
                     <div className="flex items-start gap-4">
-                       <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center font-bold text-gray-400 shrink-0 border border-gray-100 shadow-sm">
-                         <Activity size={20} className="text-brand-green"/>
+                       <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold shrink-0 border border-gray-100 shadow-sm ${viewTrash ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 text-brand-green'}`}>
+                         <Activity size={20} />
                        </div>
                        <div>
-                         <h3 className="font-bold text-lg text-brand-dark uppercase tracking-tight">{req.name}</h3>
+                         <h3 className="font-bold text-lg text-brand-dark uppercase tracking-tight flex items-center gap-2">
+                           {req.name}
+                           {viewTrash && <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full">ELIMINADO</span>}
+                         </h3>
                          <div className="flex flex-wrap gap-2 text-xs text-gray-500 mt-1 items-center">
                            <span className="text-brand-green font-bold bg-brand-green/10 px-2 py-0.5 rounded-sm border border-brand-green/20 uppercase tracking-wider">{req.plan}</span>
                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
@@ -384,8 +549,39 @@ export const AdminPage: React.FC = () => {
                         <span className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Recibido</span>
                         <span className="text-xs text-brand-dark font-mono font-medium">{formatDate(req.createdAt)}</span>
                       </div>
-                      <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === req.id ? 'rotate-180 bg-gray-100' : ''}`}>
-                        <ChevronDown size={20} className="text-gray-400"/>
+                      
+                      {/* ACTION BUTTONS */}
+                      <div className="flex items-center gap-2">
+                        {viewTrash ? (
+                            <>
+                               <button 
+                                onClick={(e) => handleRestore(e, "nutrition_requests", req.id)}
+                                className="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                                title="Restaurar"
+                               >
+                                 <ArchiveRestore size={18} />
+                               </button>
+                               <button 
+                                onClick={(e) => handleDeletePermanent(e, "nutrition_requests", req.id)}
+                                className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                title="Eliminar Definitivamente"
+                               >
+                                 <Trash2 size={18} />
+                               </button>
+                            </>
+                         ) : (
+                            <button 
+                              onClick={(e) => handleMoveToTrash(e, "nutrition_requests", req.id)}
+                              className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                              title="Mover a Papelera"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                         )}
+
+                        <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === req.id ? 'rotate-180 bg-gray-100' : ''}`}>
+                          <ChevronDown size={20} className="text-gray-400"/>
+                        </div>
                       </div>
                     </div>
                   </div>
