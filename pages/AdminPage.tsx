@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs, doc, updateDoc, deleteDoc, Timestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { Button } from '../components/Button';
-import { Lock, LogOut, LayoutGrid, Calendar, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
+import { Lock, LogOut, LayoutGrid, Calendar, Mail, Phone, MapPin, User as UserIcon, Activity, ChevronDown, ChevronUp, ArrowLeft, Trash2, Download, RefreshCcw, AlertTriangle } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 // Data types based on our forms
@@ -17,6 +17,8 @@ interface NutritionRequest {
   message: string;
   createdAt: any;
   status: string;
+  deletedAt?: any; // For trash logic
+  type: 'nutrition'; // Discriminator
 }
 
 interface CampusRegistration {
@@ -41,7 +43,11 @@ interface CampusRegistration {
   otherInfo: string;
   paymentMethod: string;
   status: string;
+  deletedAt?: any; // For trash logic
+  type: 'campus'; // Discriminator
 }
+
+type TrashItem = NutritionRequest | CampusRegistration;
 
 export const AdminPage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -53,9 +59,10 @@ export const AdminPage: React.FC = () => {
   const [error, setError] = useState('');
 
   // Dashboard Data State
-  const [activeTab, setActiveTab] = useState<'campus' | 'nutrition'>('campus');
+  const [activeTab, setActiveTab] = useState<'campus' | 'nutrition' | 'trash'>('campus');
   const [nutritionRequests, setNutritionRequests] = useState<NutritionRequest[]>([]);
   const [campusRegistrations, setCampusRegistrations] = useState<CampusRegistration[]>([]);
+  const [trashItems, setTrashItems] = useState<TrashItem[]>([]);
   const [dataLoading, setDataLoading] = useState(false);
   
   // Expanded card state
@@ -78,19 +85,53 @@ export const AdminPage: React.FC = () => {
       // Fetch Nutrition
       const nutritionQuery = query(collection(db, "nutrition_requests"), orderBy("createdAt", "desc"));
       const nutritionSnap = await getDocs(nutritionQuery);
-      const nutritionData = nutritionSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as NutritionRequest));
-      setNutritionRequests(nutritionData);
+      const allNutrition = nutritionSnap.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'nutrition' } as NutritionRequest));
 
       // Fetch Campus
       const campusQuery = query(collection(db, "campus_registrations"), orderBy("createdAt", "desc"));
       const campusSnap = await getDocs(campusQuery);
-      const campusData = campusSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as CampusRegistration));
-      setCampusRegistrations(campusData);
+      const allCampus = campusSnap.docs.map(doc => ({ id: doc.id, ...doc.data(), type: 'campus' } as CampusRegistration));
+
+      // Filter Active vs Trash
+      const activeNutrition = allNutrition.filter(item => item.status !== 'trash');
+      const activeCampus = allCampus.filter(item => item.status !== 'trash');
+      
+      const trashedNutrition = allNutrition.filter(item => item.status === 'trash');
+      const trashedCampus = allCampus.filter(item => item.status === 'trash');
+      const allTrash = [...trashedCampus, ...trashedNutrition].sort((a, b) => {
+        // Sort trash by deletedAt descending if available, else createdAt
+        const dateA = a.deletedAt ? (a.deletedAt.toDate ? a.deletedAt.toDate() : new Date(a.deletedAt)) : new Date();
+        const dateB = b.deletedAt ? (b.deletedAt.toDate ? b.deletedAt.toDate() : new Date(b.deletedAt)) : new Date();
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      setNutritionRequests(activeNutrition);
+      setCampusRegistrations(activeCampus);
+      setTrashItems(allTrash);
+
+      // Run cleanup check (delete items older than 30 days)
+      await cleanupOldTrash(allTrash);
 
     } catch (err) {
       console.error("Error fetching data:", err);
     } finally {
       setDataLoading(false);
+    }
+  };
+
+  const cleanupOldTrash = async (items: TrashItem[]) => {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    for (const item of items) {
+      if (item.deletedAt) {
+        const deletedDate = item.deletedAt.toDate ? item.deletedAt.toDate() : new Date(item.deletedAt);
+        if (deletedDate < thirtyDaysAgo) {
+          console.log(`Auto-deleting expired item: ${item.id}`);
+          const collectionName = item.type === 'campus' ? 'campus_registrations' : 'nutrition_requests';
+          await deleteDoc(doc(db, collectionName, item.id));
+        }
+      }
     }
   };
 
@@ -109,14 +150,139 @@ export const AdminPage: React.FC = () => {
     signOut(auth);
   };
 
+  // --- TRASH & DELETE ACTIONS ---
+
+  const moveToTrash = async (id: string, type: 'campus' | 'nutrition', e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!window.confirm("¿Mover a la papelera? Se eliminará definitivamente en 30 días.")) return;
+
+    const collectionName = type === 'campus' ? 'campus_registrations' : 'nutrition_requests';
+    try {
+      await updateDoc(doc(db, collectionName, id), {
+        status: 'trash',
+        deletedAt: new Date() // Store as ISO string or timestamp
+      });
+      fetchData(); // Refresh list
+    } catch (error) {
+      console.error("Error moving to trash", error);
+    }
+  };
+
+  const restoreFromTrash = async (id: string, type: 'campus' | 'nutrition', e: React.MouseEvent) => {
+    e.stopPropagation();
+    const collectionName = type === 'campus' ? 'campus_registrations' : 'nutrition_requests';
+    try {
+      await updateDoc(doc(db, collectionName, id), {
+        status: 'pending', // Default back to pending/new
+        deletedAt: null
+      });
+      fetchData();
+    } catch (error) {
+      console.error("Error restoring", error);
+    }
+  };
+
+  const deletePermanently = async (id: string, type: 'campus' | 'nutrition', e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!window.confirm("¿ESTÁS SEGURO? Esta acción no se puede deshacer.")) return;
+    
+    const collectionName = type === 'campus' ? 'campus_registrations' : 'nutrition_requests';
+    try {
+      await deleteDoc(doc(db, collectionName, id));
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting permanently", error);
+    }
+  };
+
+  // --- CSV EXPORT ---
+
+  const exportToCSV = () => {
+    let data: any[] = [];
+    let headers: string[] = [];
+    let filename = '';
+
+    if (activeTab === 'campus') {
+      data = campusRegistrations;
+      filename = `Inscripciones_Campus_${new Date().toISOString().split('T')[0]}.csv`;
+      headers = ['ID', 'Fecha Registro', 'Sede', 'Jugador', 'Fecha Nacimiento', 'Edad', 'Club', 'Socio', 'Categoría', 'Años Jugando', 'Talla', 'Tutor', 'DNI Tutor', 'Email', 'Teléfono', 'Dirección', 'Alergias', 'Intolerancias', 'Notas', 'Método Pago'];
+    } else if (activeTab === 'nutrition') {
+      data = nutritionRequests;
+      filename = `Solicitudes_Nutricion_${new Date().toISOString().split('T')[0]}.csv`;
+      headers = ['ID', 'Fecha Solicitud', 'Nombre', 'Email', 'Teléfono', 'Plan Interés', 'Mensaje'];
+    } else {
+      return; // No export for trash currently
+    }
+
+    const formatField = (field: any) => {
+      if (!field) return '';
+      // Escape quotes and wrap in quotes to handle commas
+      const stringField = String(field).replace(/"/g, '""');
+      return `"${stringField}"`;
+    };
+
+    const csvRows = [
+      headers.join(','), // Header row
+      ...data.map(row => {
+        if (activeTab === 'campus') {
+          const r = row as CampusRegistration;
+          return [
+            r.id,
+            formatDate(r.createdAt),
+            formatField(r.location),
+            formatField(r.playerName),
+            formatField(r.birthDate),
+            formatField(r.age),
+            formatField(r.club),
+            formatField(r.isClubMember),
+            formatField(r.category),
+            formatField(r.yearsPlaying),
+            formatField(r.shirtSize),
+            formatField(r.tutorName),
+            formatField(r.tutorDni),
+            formatField(r.email),
+            formatField(r.phone),
+            formatField(r.address),
+            formatField(r.allergies),
+            formatField(r.intolerances),
+            formatField(r.otherInfo),
+            formatField(r.paymentMethod)
+          ].join(',');
+        } else {
+          const r = row as NutritionRequest;
+          return [
+            r.id,
+            formatDate(r.createdAt),
+            formatField(r.name),
+            formatField(r.email),
+            formatField(r.phone),
+            formatField(r.plan),
+            formatField(r.message)
+          ].join(',');
+        }
+      })
+    ];
+
+    const csvContent = "\uFEFF" + csvRows.join('\n'); // Add BOM for Excel utf-8 compatibility
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
   const formatDate = (timestamp: any) => {
     if (!timestamp) return 'Sin fecha';
-    // Handle Firebase Timestamp
+    // Handle Firebase Timestamp or Date string
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    if (isNaN(date.getTime())) return 'Fecha inválida';
     return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit' });
   };
 
@@ -203,11 +369,11 @@ export const AdminPage: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-8">
         
         {/* Tabs & Actions */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-           <div className="flex gap-1 bg-white p-1 rounded-sm shadow-sm border border-gray-200">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-8 gap-4">
+           <div className="flex gap-1 bg-white p-1 rounded-sm shadow-sm border border-gray-200 overflow-x-auto w-full lg:w-auto">
             <button 
               onClick={() => setActiveTab('campus')}
-              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
+              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm whitespace-nowrap ${
                 activeTab === 'campus' 
                   ? 'bg-brand-dark text-white shadow-md' 
                   : 'text-gray-500 hover:bg-gray-50'
@@ -217,7 +383,7 @@ export const AdminPage: React.FC = () => {
             </button>
             <button 
               onClick={() => setActiveTab('nutrition')}
-              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm ${
+              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm whitespace-nowrap ${
                 activeTab === 'nutrition' 
                   ? 'bg-brand-dark text-white shadow-md' 
                   : 'text-gray-500 hover:bg-gray-50'
@@ -225,11 +391,28 @@ export const AdminPage: React.FC = () => {
             >
               Nutrición ({nutritionRequests.length})
             </button>
+            <button 
+              onClick={() => setActiveTab('trash')}
+              className={`py-2 px-6 text-xs font-bold uppercase tracking-wider transition-all rounded-sm whitespace-nowrap flex items-center gap-2 ${
+                activeTab === 'trash' 
+                  ? 'bg-red-50 text-red-600 shadow-md border border-red-100' 
+                  : 'text-gray-400 hover:bg-red-50 hover:text-red-500'
+              }`}
+            >
+              <Trash2 size={14} /> Papelera ({trashItems.length})
+            </button>
           </div>
           
-          <Button variant="outline" onClick={fetchData} className="py-2 px-4 text-xs h-10 border-gray-300 text-gray-600 hover:text-brand-dark hover:border-brand-dark">
-            Actualizar Datos
-          </Button>
+          <div className="flex gap-2 w-full lg:w-auto">
+            {activeTab !== 'trash' && (
+              <Button onClick={exportToCSV} variant="lime" className="py-2 px-4 text-xs h-10 flex items-center gap-2 flex-1 lg:flex-none justify-center">
+                <Download size={16} /> Exportar CSV
+              </Button>
+            )}
+            <Button variant="outline" onClick={fetchData} className="py-2 px-4 text-xs h-10 border-gray-300 text-gray-600 hover:text-brand-dark hover:border-brand-dark flex-1 lg:flex-none justify-center">
+              Actualizar
+            </Button>
+          </div>
         </div>
 
         {dataLoading ? (
@@ -247,7 +430,7 @@ export const AdminPage: React.FC = () => {
                 </div>
               ) : (
               campusRegistrations.map((reg) => (
-                <div key={reg.id} className="bg-white border-l-4 border-brand-lime shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm">
+                <div key={reg.id} className="bg-white border-l-4 border-brand-lime shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm group relative">
                   <div 
                     onClick={() => toggleExpand(reg.id)}
                     className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
@@ -273,8 +456,18 @@ export const AdminPage: React.FC = () => {
                         <span className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Recibido</span>
                         <span className="text-xs text-brand-dark font-mono font-medium">{formatDate(reg.createdAt)}</span>
                       </div>
-                      <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === reg.id ? 'rotate-180 bg-gray-100' : ''}`}>
-                        <ChevronDown size={20} className="text-gray-400"/>
+                      
+                      <div className="flex items-center gap-2">
+                         <button 
+                            onClick={(e) => moveToTrash(reg.id, 'campus', e)}
+                            className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors z-10"
+                            title="Mover a papelera"
+                         >
+                           <Trash2 size={16} />
+                         </button>
+                         <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === reg.id ? 'rotate-180 bg-gray-100' : ''}`}>
+                            <ChevronDown size={20} className="text-gray-400"/>
+                         </div>
                       </div>
                     </div>
                   </div>
@@ -360,7 +553,7 @@ export const AdminPage: React.FC = () => {
                 </div>
                ) : (
                nutritionRequests.map((req) => (
-                <div key={req.id} className="bg-white border-l-4 border-brand-green shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm">
+                <div key={req.id} className="bg-white border-l-4 border-brand-green shadow-sm hover:shadow-lg transition-all duration-300 rounded-r-sm group">
                   <div 
                     onClick={() => toggleExpand(req.id)}
                     className="p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
@@ -384,8 +577,17 @@ export const AdminPage: React.FC = () => {
                         <span className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Recibido</span>
                         <span className="text-xs text-brand-dark font-mono font-medium">{formatDate(req.createdAt)}</span>
                       </div>
-                      <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === req.id ? 'rotate-180 bg-gray-100' : ''}`}>
-                        <ChevronDown size={20} className="text-gray-400"/>
+                      <div className="flex items-center gap-2">
+                         <button 
+                            onClick={(e) => moveToTrash(req.id, 'nutrition', e)}
+                            className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors z-10"
+                            title="Mover a papelera"
+                         >
+                           <Trash2 size={16} />
+                         </button>
+                         <div className={`p-1 rounded-full transition-transform duration-300 ${expandedId === req.id ? 'rotate-180 bg-gray-100' : ''}`}>
+                            <ChevronDown size={20} className="text-gray-400"/>
+                         </div>
                       </div>
                     </div>
                   </div>
@@ -421,6 +623,55 @@ export const AdminPage: React.FC = () => {
                ))
                )
             )}
+
+             {/* TRASH LIST */}
+             {activeTab === 'trash' && (
+              <div className="space-y-4">
+                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-sm text-sm text-yellow-800 flex items-center gap-3 mb-6">
+                  <AlertTriangle className="shrink-0" size={20} />
+                  <p>Los elementos en la papelera se eliminarán automáticamente si llevan más de 30 días eliminados.</p>
+                </div>
+
+                {trashItems.length === 0 ? (
+                  <div className="text-center py-20 bg-white border border-dashed border-gray-300 rounded-sm">
+                    <p className="text-gray-400 font-light">La papelera está vacía.</p>
+                  </div>
+                ) : (
+                  trashItems.map((item) => (
+                    <div key={item.id} className="bg-white border-l-4 border-red-200 shadow-sm rounded-r-sm p-4 flex flex-col md:flex-row items-center justify-between gap-4 opacity-75 hover:opacity-100 transition-opacity">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-400">
+                          <Trash2 size={18} />
+                        </div>
+                        <div>
+                          <p className="font-bold text-brand-dark">
+                            {'playerName' in item ? item.playerName : item.name}
+                          </p>
+                          <p className="text-xs text-gray-400 uppercase tracking-wider">
+                            {item.type === 'campus' ? 'Registro Campus' : 'Solicitud Nutrición'} • Borrado el: {formatDate(item.deletedAt)}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-2">
+                         <button 
+                           onClick={(e) => restoreFromTrash(item.id, item.type, e)}
+                           className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-brand-green hover:bg-brand-green/10 px-3 py-2 rounded-sm transition-colors"
+                         >
+                           <RefreshCcw size={14} /> Restaurar
+                         </button>
+                         <button 
+                           onClick={(e) => deletePermanently(item.id, item.type, e)}
+                           className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-red-500 hover:bg-red-50 px-3 py-2 rounded-sm transition-colors"
+                         >
+                           <Trash2 size={14} /> Eliminar
+                         </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+             )}
             
           </div>
         )}
