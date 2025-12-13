@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '../Button';
 import { CheckCircle, Tag, AlertCircle, User, Users, HeartPulse, MapPin } from 'lucide-react';
 import { db } from '../../firebase';
@@ -12,6 +12,7 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const formRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
     location: '',
@@ -33,6 +34,13 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCardClick = (location: string) => {
+    setFormData({ ...formData, location });
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const calculateAge = (birthDateString: string) => {
@@ -133,7 +141,12 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
           {/* Estepona Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green group hover:-translate-y-1 transition-transform duration-300">
+          <div 
+            onClick={() => handleCardClick('Estepona')}
+            role="button"
+            tabIndex={0}
+            className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-green group hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+          >
             <div className="absolute top-0 right-0 bg-brand-green text-xs font-bold px-3 py-1 uppercase text-white">Málaga</div>
             <h4 className="text-2xl font-black uppercase mb-2">Estepona</h4>
             <p className="text-sm text-gray-400 mb-6">Pabellón JA Pineda (13-18 Julio)</p>
@@ -156,10 +169,21 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-green"/> Agua, Fruta y Snacks diarios</li>
             </ul>
+            
+            <div className="mt-4 text-center">
+              <span className="text-brand-green text-sm font-bold uppercase tracking-wider border-b border-brand-green pb-1 group-hover:text-white group-hover:border-white transition-colors">
+                Seleccionar Sede
+              </span>
+            </div>
           </div>
 
           {/* Moncofa Pricing */}
-          <div className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime group hover:-translate-y-1 transition-transform duration-300">
+          <div 
+            onClick={() => handleCardClick('Moncofa')}
+            role="button"
+            tabIndex={0}
+            className="bg-brand-dark text-white p-8 rounded-sm relative overflow-hidden shadow-xl border-t-4 border-brand-lime group hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+          >
             <div className="absolute top-0 right-0 bg-brand-lime text-xs font-bold px-3 py-1 uppercase text-brand-dark">Castellón</div>
             <h4 className="text-2xl font-black uppercase mb-2">Moncofa</h4>
             <p className="text-sm text-gray-400 mb-6">Instalaciones Municipales (3-8 Agosto)</p>
@@ -182,10 +206,16 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> 2 Camisetas de entrenamiento</li>
               <li className="flex items-center gap-2"><CheckCircle size={14} className="text-brand-lime"/> Agua, Fruta y Snacks diarios</li>
             </ul>
+            
+            <div className="mt-4 text-center">
+              <span className="text-brand-lime text-sm font-bold uppercase tracking-wider border-b border-brand-lime pb-1 group-hover:text-white group-hover:border-white transition-colors">
+                Seleccionar Sede
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 shadow-2xl max-w-5xl mx-auto rounded-sm overflow-hidden">
+        <div ref={formRef} className="bg-white border border-gray-200 shadow-2xl max-w-5xl mx-auto rounded-sm overflow-hidden scroll-mt-24">
           <div className="bg-brand-dark p-6 text-center">
             <h4 className="text-2xl font-black uppercase text-white">Formulario de Inscripción</h4>
             <p className="text-gray-400 text-xs mt-1 font-light tracking-wide">Rellena los campos para formalizar tu solicitud</p>
