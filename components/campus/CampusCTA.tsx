@@ -130,12 +130,26 @@ export const CampusCTA: React.FC<CampusCTAProps> = ({ onContactClick }) => {
         
         <div className="text-center mb-16">
           <h3 className="text-4xl font-black uppercase mb-6 text-brand-dark">Únete al Campus</h3>
-          <p className="max-w-2xl mx-auto text-gray-500 font-light mb-4">
-            Elige tu sede y reserva tu plaza. Las plazas son limitadas para asegurar la calidad de los entrenamientos.
-          </p>
-          <p className="text-brand-green font-bold uppercase tracking-widest text-xs border border-brand-green/30 inline-block px-4 py-2 rounded-full">
-            Categorías: Baby a Junior (Nacidos 2008 - 2019)
-          </p>
+          
+          <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
+            <p className="text-gray-500 font-light">
+              Elige tu sede y reserva tu plaza. Trabajamos con grupos reducidos para garantizar la máxima atención.
+            </p>
+            
+            <div className="flex flex-col items-center gap-2 bg-red-50 border border-red-100 p-4 rounded-sm animate-pulse w-full md:w-auto">
+               <div className="flex items-center gap-2 text-red-600 font-bold uppercase tracking-wide text-sm">
+                 <AlertCircle size={18} />
+                 <span>¡Plazas Limitadas!</span>
+               </div>
+               <p className="text-red-700/80 text-sm">
+                 Recomendamos realizar la inscripción lo antes posible para asegurar la plaza.
+               </p>
+            </div>
+
+            <p className="text-brand-green font-bold uppercase tracking-widest text-xs border border-brand-green/30 inline-block px-4 py-2 rounded-full">
+              Categorías: Baby a Junior (Nacidos 2008 - 2019)
+            </p>
+          </div>
         </div>
 
         {/* Pricing Cards */}

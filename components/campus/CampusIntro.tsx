@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Calendar, Utensils, XCircle } from 'lucide-react';
+import { MapPin, Calendar, Utensils, XCircle, Clock } from 'lucide-react';
 
 export const CampusIntro: React.FC = () => {
   return (
@@ -41,6 +41,11 @@ export const CampusIntro: React.FC = () => {
                    <Calendar size={18} className="text-brand-lime"/>
                    <span className="font-bold text-white">13 - 18 Julio</span>
                  </div>
+                 <div className="flex items-center gap-3 text-gray-300">
+                   <Clock size={18} className="text-brand-lime"/>
+                   <span className="font-bold text-white">10:00h - 15:00h</span>
+                   <span className="text-xs bg-brand-lime/20 text-brand-lime px-2 py-0.5 rounded-sm uppercase font-bold tracking-wider">Solo Mañanas</span>
+                 </div>
                  <div className="flex items-start gap-3 text-gray-300">
                    <Utensils size={18} className="text-brand-lime mt-1 shrink-0"/>
                    <span className="text-sm">Servicio de Bar/Cafetería disponible en la instalación.</span>
@@ -68,6 +73,11 @@ export const CampusIntro: React.FC = () => {
                  <div className="flex items-center gap-3 text-gray-300">
                    <Calendar size={18} className="text-brand-lime"/>
                    <span className="font-bold text-white">3 - 8 Agosto</span>
+                 </div>
+                 <div className="flex items-center gap-3 text-gray-300">
+                   <Clock size={18} className="text-brand-lime"/>
+                   <span className="font-bold text-white">10:00h - 15:00h</span>
+                   <span className="text-xs bg-brand-lime/20 text-brand-lime px-2 py-0.5 rounded-sm uppercase font-bold tracking-wider">Solo Mañanas</span>
                  </div>
                  <div className="flex items-start gap-3 text-gray-300">
                    <XCircle size={18} className="text-gray-500 mt-1 shrink-0"/>
