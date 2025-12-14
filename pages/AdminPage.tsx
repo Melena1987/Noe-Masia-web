@@ -215,7 +215,7 @@ export const AdminPage: React.FC = () => {
     }
 
     const formatField = (field: any) => {
-      if (!field) return '';
+      if (field === null || field === undefined) return '';
       // Escape quotes and wrap in quotes to handle commas
       const stringField = String(field).replace(/"/g, '""');
       return `"${stringField}"`;
@@ -227,8 +227,8 @@ export const AdminPage: React.FC = () => {
         if (activeTab === 'campus') {
           const r = row as CampusRegistration;
           return [
-            r.id,
-            formatDate(r.createdAt),
+            formatField(r.id),
+            formatField(formatDate(r.createdAt)),
             formatField(r.location),
             formatField(r.playerName),
             formatField(r.birthDate),
@@ -251,8 +251,8 @@ export const AdminPage: React.FC = () => {
         } else {
           const r = row as NutritionRequest;
           return [
-            r.id,
-            formatDate(r.createdAt),
+            formatField(r.id),
+            formatField(formatDate(r.createdAt)),
             formatField(r.name),
             formatField(r.email),
             formatField(r.phone),
